@@ -5,7 +5,7 @@ function KakaoAuth() {
     Kakao.init(process.env.REACT_APP_KAKAO_KEY);
     Kakao.isInitialized();
     Kakao.Auth.authorize({
-      redirectUri: "http://localhost:3000/" /* redirect되는 URL */,
+      redirectUri: "https://loud-idle.vercel.app" /* redirect되는 URL */,
       scope: "phone_number" /* 전달 받을 정보 */,
     });
   }
