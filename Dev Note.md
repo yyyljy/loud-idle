@@ -18,3 +18,10 @@
       - 1 : N
    2. `wallet address` > `holding NFTs contract addresses` == `our NFTs contract addresses`
       - N : N
+
+
+
+### Study
+
+1. Transaction
+

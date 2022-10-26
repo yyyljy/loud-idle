@@ -7,7 +7,7 @@ import {
   GithubAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { Button, Spacer, Grid } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 
 const GoogleAuthForm = () => {
   const onSocialClick = async (event) => {

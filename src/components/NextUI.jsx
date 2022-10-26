@@ -2,13 +2,6 @@ import { Button, Spacer, Grid } from "@nextui-org/react";
 function NextUITest() {
   return (
     <>
-      {" "}
-      <p>.</p>
-      <p>.</p>
-      <p>.</p>
-      <p>.</p>
-      <p>.</p>
-      <p>.</p>
       <div>
         <Button disabled>1</Button>
       </div>

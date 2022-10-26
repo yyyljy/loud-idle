@@ -1,0 +1,30 @@
+function KakaoAuth() {
+  const Kakao = window.Kakao;
+
+  function loginWithKakao() {
+    Kakao.init(process.env.REACT_APP_KAKAO_KEY);
+    Kakao.isInitialized();
+    Kakao.Auth.authorize({
+      redirectUri: "http://localhost:3000/" /* redirect되는 URL */,
+      scope: "phone_number" /* 전달 받을 정보 */,
+    });
+  }
+
+  return (
+    <>
+      <button
+        id="custom-login-btn"
+        onClick={() => {
+          loginWithKakao();
+        }}
+      >
+        <img
+          src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+          width="222"
+        />
+      </button>
+    </>
+  );
+}
+
+export default KakaoAuth;
