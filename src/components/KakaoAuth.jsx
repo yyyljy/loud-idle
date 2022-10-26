@@ -6,7 +6,6 @@ function KakaoAuth() {
     Kakao.isInitialized();
     Kakao.Auth.authorize({
       redirectUri: "https://loud-idle.vercel.app" /* redirect되는 URL */,
-      scope: "phone_number" /* 전달 받을 정보 */,
     });
   }
 
