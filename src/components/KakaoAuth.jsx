@@ -18,7 +18,7 @@ function KakaoAuth() {
       setLoading(true);
       const response = await axios
         .get({
-          method: "post",
+          method: "get",
           url: "https://kauth.kakao.com/oauth/token",
           data: {
             grant_type: "authorization_code",
@@ -27,8 +27,8 @@ function KakaoAuth() {
             code: codeRecv,
           },
         })
-        .then(() => {
-          console.log("asdjkljasd");
+        .then((res) => {
+          console.log(res);
         });
       setData(response.data);
     } catch (e) {
