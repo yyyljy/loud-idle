@@ -13,6 +13,9 @@ function KakaoAuth() {
 
   const sendToken = async () => {
     try {
+      if (codeRecv.length === 2) {
+        codeRecv = codeRecv[1];
+      }
       setError(null);
       setData(null);
       setLoading(true);
@@ -20,7 +23,7 @@ function KakaoAuth() {
         method: "post",
         url: "https://kauth.kakao.com/oauth/token",
         data: {
-          grant_type: "refresh_token",
+          grant_type: "authorization_code",
           client_id: process.env.REACT_APP_KAKAO_APP_ID,
           redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
           code: codeRecv,
