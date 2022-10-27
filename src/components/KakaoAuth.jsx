@@ -6,13 +6,14 @@ function KakaoAuth() {
   const [kakaoToken, setkakaoToken] = useState("");
 
   useEffect(() => {
+    console.log("test");
     if (!isKakaoLoggedIn) {
       return;
     } else {
-      console.log("test");
       async function displayToken() {
         setkakaoToken = getCookie("authorize-access-token");
 
+        console.log("test");
         if (kakaoToken) {
           await Kakao.Auth.setAccessToken(kakaoToken);
           await Kakao.Auth.getStatusInfo()
