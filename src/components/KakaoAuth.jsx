@@ -31,7 +31,7 @@ function KakaoAuth() {
         }),
       };
       const response = await axios(config).then((res) => {
-        console.log(`access_token:${res}`);
+        console.log(res);
       });
       setData(response.data);
     } catch (e) {
