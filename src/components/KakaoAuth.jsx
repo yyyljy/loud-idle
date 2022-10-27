@@ -7,29 +7,45 @@ function KakaoAuth() {
   let redirectURL = window.location.href;
   let codeRecv = redirectURL.split("code=");
 
-  useEffect(() => {
-    async function sendToken() {
-      if (codeRecv.length === 2) {
-        codeRecv = codeRecv[1];
-        const res = await axios
-          .get({
-            method: "post",
-            url: "https://kauth.kakao.com/oauth/token",
-            data: {
-              grant_type: "authorization_code",
-              client_id: process.env.REACT_APP_KAKAO_APP_ID,
-              redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-              code: codeRecv,
-            },
-          })
-          .then(function (response) {
-            console.log(`POST response:${response.data}`);
-          });
-        console.log(res.data);
-      }
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const sendToken = async () => {
+    try {
+      setError(null);
+      setUsers(null);
+      setLoading(true);
+      const response = await axios.get({
+        method: "post",
+        url: "https://kauth.kakao.com/oauth/token",
+        data: {
+          grant_type: "authorization_code",
+          client_id: process.env.REACT_APP_KAKAO_APP_ID,
+          redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+          code: codeRecv,
+        },
+      });
+      setData(response.data);
+    } catch (e) {
+      setError(e);
     }
+    setLoading(false);
+  };
+
+  useEffect(() => {
     sendToken();
-  });
+  }, []);
+
+  const htmlMsg = "";
+  if (loading) htmlMsg = <div>로딩중..</div>;
+  if (error) htmlMsg = <div>에러가 발생했습니다</div>;
+  if (!data) {
+    htmlMsg = null;
+    console.log("NOTHING");
+  } else {
+    htmlMsg = <div>data</div>;
+  }
 
   // const [isKakaoLoggedIn, setIsKakaoLoggedIn] = useState(false);
   // const [kakaoToken, setkakaoToken] = useState("");
@@ -74,8 +90,6 @@ function KakaoAuth() {
     Kakao.isInitialized();
     const res = Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-    }).then(function (response) {
-      console(`Auth response : ${response}`);
     });
   }
 
@@ -93,7 +107,7 @@ function KakaoAuth() {
           alt="kakao-login-img"
         />
       </button>
-      {/* <button>{`Token Value : ${kakaoToken}`}</button> */}
+      {`Token Value : ${data}`}
     </>
   );
 }
