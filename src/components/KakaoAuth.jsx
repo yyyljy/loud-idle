@@ -14,7 +14,7 @@ function KakaoAuth() {
   const sendToken = async () => {
     try {
       setError(null);
-      setUsers(null);
+      setData(null);
       setLoading(true);
       const response = await axios.get({
         method: "post",
