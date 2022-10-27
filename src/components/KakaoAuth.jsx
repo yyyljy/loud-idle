@@ -23,9 +23,9 @@ function KakaoAuth() {
             },
           })
           .then(function (response) {
-            console.log(`POST response:${response}`);
+            console.log(`POST response:${response.data}`);
           });
-        console.log(res);
+        console.log(res.data);
       }
     }
     sendToken();
