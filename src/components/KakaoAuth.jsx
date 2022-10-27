@@ -1,44 +1,58 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
-  const [isKakaoLoggedIn, setIsKakaoLoggedIn] = useState(false);
-  const [kakaoToken, setkakaoToken] = useState("");
+  console.log(axios);
+  console.log(window.location.href);
+  axios.post({
+    method: "post",
+    url: "https://kauth.kakao.com/oauth/token",
+    data: {
+      grant_type: "authorization_code",
+      client_id: process.env.REACT_APP_KAKAO_APP_ID,
+      redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+      code: "",
+    },
+  });
 
-  useEffect(() => {
-    console.log("test");
-    if (!isKakaoLoggedIn) {
-      return;
-    } else {
-      async function displayToken() {
-        setkakaoToken = getCookie("authorize-access-token");
+  // const [isKakaoLoggedIn, setIsKakaoLoggedIn] = useState(false);
+  // const [kakaoToken, setkakaoToken] = useState("");
 
-        console.log("test");
-        if (kakaoToken) {
-          await Kakao.Auth.setAccessToken(kakaoToken);
-          await Kakao.Auth.getStatusInfo()
-            .then(function (res) {
-              if (res.status === "connected") {
-                setIsKakaoLoggedIn(true);
-                document.getElementById("token-result").innerText =
-                  "login success, token: " + Kakao.Auth.getAccessToken();
-              }
-            })
-            .catch(function (err) {
-              Kakao.Auth.setAccessToken(null);
-            });
-        }
-      }
+  // useEffect(() => {
+  //   console.log("test");
+  //   if (!isKakaoLoggedIn) {
+  //     return;
+  //   } else {
+  //     async function displayToken() {
+  //       setkakaoToken = getCookie("authorize-access-token");
 
-      function getCookie(name) {
-        let parts = document.cookie.split(name + "=");
-        if (parts.length === 2) {
-          return parts[1].split(";")[0];
-        }
-      }
-      displayToken();
-    }
-  }, [isKakaoLoggedIn, kakaoToken]);
+  //       console.log("test");
+  //       if (kakaoToken) {
+  //         await Kakao.Auth.setAccessToken(kakaoToken);
+  //         await Kakao.Auth.getStatusInfo()
+  //           .then(function (res) {
+  //             if (res.status === "connected") {
+  //               setIsKakaoLoggedIn(true);
+  //               document.getElementById("token-result").innerText =
+  //                 "login success, token: " + Kakao.Auth.getAccessToken();
+  //             }
+  //           })
+  //           .catch(function (err) {
+  //             Kakao.Auth.setAccessToken(null);
+  //           });
+  //       }
+  //     }
+
+  //     function getCookie(name) {
+  //       let parts = document.cookie.split(name + "=");
+  //       if (parts.length === 2) {
+  //         return parts[1].split(";")[0];
+  //       }
+  //     }
+  //     displayToken();
+  //   }
+  // }, [isKakaoLoggedIn, kakaoToken]);
 
   function loginWithKakao() {
     Kakao.init(process.env.REACT_APP_KAKAO_KEY);
@@ -62,7 +76,7 @@ function KakaoAuth() {
           alt="kakao-login-img"
         />
       </button>
-      <button>{`Token Value : ${kakaoToken}`}</button>
+      {/* <button>{`Token Value : ${kakaoToken}`}</button> */}
     </>
   );
 }
