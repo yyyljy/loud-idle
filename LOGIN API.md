@@ -72,23 +72,68 @@ if (codeRecv.length === 2) {
 }
 ```
 
-5. POST로 토큰 요청을 보낸다.
+5. POST로 토큰 요청을 보낸다. 결론은 아래처럼 하면되고 ~~그 밑에 나열된 건 안봐도 된다.~~
 
 ```javascript
 const config = {
     method: "POST",
     url: "https://kauth.kakao.com/oauth/token",
     data: qs.stringify({
-    grant_type: "authorization_code",
-    client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
-    redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-    code: codeRecv,
+    	grant_type: "authorization_code",
+    	client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
+    	redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+    	code: codeRecv,
     }),
 };
 const response = await axios(config).then((res) => {
-        console.log(res.access_token);
+        console.log(res.data);
 });
 ```
 
+- ~~여기서 대부분의 시간을 보내며 고생했다.~~
+- https://axios-http.com/kr/docs/intro 이 곳을 보고 코드를 짰는데
+- ~~처음 참고한 코드~~는
 
+```javascript
+axios.post('/user', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+- https://axios-http.com/kr/docs/api_intro 여기에 들어가니 다른 코드가 있어서 아래 방식으로 진행
+
+```javascript
+// POST 요청 전송
+axios({
+  method: 'post',
+  url: '/user/12345',
+  data: {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  }
+});
+```
+
+- 401 오류가 발생해서 401 Unauthorized로 검색해보니 client_secret 이야기를 하는데
+
+  내 어플리케이션에 아무리 찾아도 보안 메뉴는 물론 client_secret 설정도 없다.
+
+- Kakao Docs를 다시 천천히 읽어보다가 아래의 부분이 눈에 들어왔다.
+
+```
+POST /oauth/token HTTP/1.1
+Host: kauth.kakao.com
+Content-type: application/x-www-form-urlencoded;charset=utf-8
+```
+
+- 안해본건 Content-type 뿐이 었기 때문에 다시 axios docs를 살펴보았다.
+- https://axios-http.com/kr/docs/urlencoded
+- 기본 방식은 application/json 방식이다. 그래서 오류가 발생했고 qs.stringfy를 이용해 해결했다.
 
