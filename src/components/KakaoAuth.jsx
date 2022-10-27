@@ -11,21 +11,21 @@ function KakaoAuth() {
     async function sendToken() {
       if (codeRecv.length === 2) {
         codeRecv = codeRecv[1];
-        const res = await axios
-          .post({
-            method: "post",
-            url: "https://kauth.kakao.com/oauth/token",
-            data: {
-              grant_type: "authorization_code",
-              client_id: process.env.REACT_APP_KAKAO_APP_ID,
-              redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-              code: codeRecv,
-            },
-          })
-          .then(function (response) {
-            console.log(`POST response:${response}`);
-          });
-        console.log(res);
+        // const res = await axios
+        //   .post({
+        //     method: "post",
+        //     url: "https://kauth.kakao.com/oauth/token",
+        //     data: {
+        //       grant_type: "authorization_code",
+        //       client_id: process.env.REACT_APP_KAKAO_APP_ID,
+        //       redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+        //       code: codeRecv,
+        //     },
+        //   })
+        //   .then(function (response) {
+        //     console.log(`POST response:${response}`);
+        //   });
+        // console.log(res);
       }
     }
     sendToken();
