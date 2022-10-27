@@ -7,7 +7,7 @@ function KakaoAuth() {
 
   useEffect(() => {
     if (!isKakaoLoggedIn) {
-      loginWithKakao();
+      return;
     } else {
       console.log("test");
       async function displayToken() {
@@ -43,8 +43,7 @@ function KakaoAuth() {
     Kakao.init(process.env.REACT_APP_KAKAO_KEY);
     Kakao.isInitialized();
     Kakao.Auth.authorize({
-      redirectUri:
-        process.env.REACT_APP_KAKAO_REDIRECT_URI /* redirect되는 URL */,
+      redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
     });
   }
 
