@@ -16,6 +16,7 @@ function KakaoAuth() {
       if (codeRecv.length === 2) {
         codeRecv = codeRecv[1];
       }
+      console.log(codeRecv);
       setError(null);
       setData(null);
       setLoading(true);
@@ -31,7 +32,6 @@ function KakaoAuth() {
       }).then((res) => {
         console.log(res);
         console.log(`data:${res.data}`);
-        console.log(`response:${res.response}`);
       });
       setData(response.data);
     } catch (e) {
