@@ -38,6 +38,7 @@ function KakaoAuth() {
       setData(response.data);
     } catch (e) {
       setError(e);
+      console.log(e);
     }
     setLoading(false);
   };
@@ -51,7 +52,6 @@ function KakaoAuth() {
   if (error) htmlMsg = <div>에러가 발생했습니다</div>;
   if (!data) {
     htmlMsg = null;
-    console.log("NOTHING");
   } else {
     htmlMsg = <div>{data}</div>;
   }
