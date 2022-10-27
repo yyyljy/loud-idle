@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import qs from "qs";
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
@@ -21,17 +22,14 @@ function KakaoAuth() {
       setData(null);
       setLoading(true);
       const config = {
-        method: "post",
+        method: "POST",
         url: "https://kauth.kakao.com/oauth/token",
-        data: {
+        data: qs.stringify({
           grant_type: "authorization_code",
           client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
           redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
           code: codeRecv,
-        },
-        headers: {
-          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
-        },
+        }),
       };
       console.log(config);
       const response = await axios(config).then((res) => {
