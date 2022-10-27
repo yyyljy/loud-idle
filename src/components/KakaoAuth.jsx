@@ -27,8 +27,8 @@ function KakaoAuth() {
             code: codeRecv,
           },
         })
-        .then((res) => {
-          console.log(res.token_type);
+        .then(({ token_type }) => {
+          console.log(token_type);
         });
       setData(response.data);
     } catch (e) {
