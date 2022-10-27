@@ -3,20 +3,26 @@ import axios from "axios";
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
-  console.log(axios);
+
   let redirectURL = window.location.href;
-  let code = redirectURL.split("code=");
-  console.log(code);
-  axios.post({
-    method: "post",
-    url: "https://kauth.kakao.com/oauth/token",
-    data: {
-      grant_type: "authorization_code",
-      client_id: process.env.REACT_APP_KAKAO_APP_ID,
-      redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-      code: "",
-    },
-  });
+  let codeRecv = redirectURL.split("code=");
+  if (codeRecv.length === 2) {
+    codeRecv = codeRecv[1];
+    axios
+      .post({
+        method: "post",
+        url: "https://kauth.kakao.com/oauth/token",
+        data: {
+          grant_type: "authorization_code",
+          client_id: process.env.REACT_APP_KAKAO_APP_ID,
+          redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+          code: codeRecv,
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      });
+  }
 
   // const [isKakaoLoggedIn, setIsKakaoLoggedIn] = useState(false);
   // const [kakaoToken, setkakaoToken] = useState("");
@@ -61,6 +67,8 @@ function KakaoAuth() {
     Kakao.isInitialized();
     Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+    }).then(() => {
+      console("this is test");
     });
   }
 
