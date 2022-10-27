@@ -28,7 +28,7 @@ function KakaoAuth() {
           },
         })
         .then((res) => {
-          console.log(res);
+          console.log(res.token_type);
         });
       setData(response.data);
     } catch (e) {
