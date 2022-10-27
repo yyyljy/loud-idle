@@ -28,7 +28,9 @@ function KakaoAuth() {
           },
         })
         .then((res) => {
-          console.log(res);
+          console.log(`res:${res}`);
+          console.log(`data:${res.data}`);
+          console.log(`response:${res.response}`);
         });
       setData(response.data);
     } catch (e) {
