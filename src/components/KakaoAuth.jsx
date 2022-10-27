@@ -20,7 +20,7 @@ function KakaoAuth() {
         method: "post",
         url: "https://kauth.kakao.com/oauth/token",
         data: {
-          grant_type: "authorization_code",
+          grant_type: "refresh_token",
           client_id: process.env.REACT_APP_KAKAO_APP_ID,
           redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
           code: codeRecv,
