@@ -4,7 +4,7 @@ import axios from "axios";
 function KakaoAuth() {
   const Kakao = window.Kakao;
   console.log(axios);
-  console.log(window.location.href);
+  console.log(window.location.href.split("code=")[1]);
   axios.post({
     method: "post",
     url: "https://kauth.kakao.com/oauth/token",
