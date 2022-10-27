@@ -17,7 +17,6 @@ function KakaoAuth() {
       if (codeRecv.length === 2) {
         codeRecv = codeRecv[1];
       }
-      console.log(codeRecv);
       setError(null);
       setData(null);
       setLoading(true);
@@ -31,15 +30,12 @@ function KakaoAuth() {
           code: codeRecv,
         }),
       };
-      console.log(config);
       const response = await axios(config).then((res) => {
-        console.log(res);
-        console.log(`data:${res.data}`);
+        console.log(`access_token:${res.access_token}`);
       });
       setData(response.data);
     } catch (e) {
       setError(e);
-      console.log(e);
     }
     setLoading(false);
   };
@@ -100,8 +96,6 @@ function KakaoAuth() {
     Kakao.isInitialized();
     Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-    }).then((res) => {
-      console.log(res);
     });
   }
 
