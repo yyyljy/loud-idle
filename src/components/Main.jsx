@@ -23,7 +23,7 @@ function Main() {
           fontSize="6xl"
           fontWeight="extrabold"
         >
-          There are many benefits
+          There are many
         </Text>
       </Container>
     </>
