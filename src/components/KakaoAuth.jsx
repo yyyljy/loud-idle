@@ -37,7 +37,7 @@ function KakaoAuth() {
     sendToken();
   }, []);
 
-  const htmlMsg = "";
+  let htmlMsg = "";
   if (loading) htmlMsg = <div>로딩중..</div>;
   if (error) htmlMsg = <div>에러가 발생했습니다</div>;
   if (!data) {
