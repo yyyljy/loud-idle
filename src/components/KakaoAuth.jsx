@@ -29,6 +29,9 @@ function KakaoAuth() {
           redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
           code: codeRecv,
         },
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
       };
       console.log(config);
       const response = await axios(config).then((res) => {
@@ -99,6 +102,8 @@ function KakaoAuth() {
     Kakao.isInitialized();
     Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+    }).then((res) => {
+      console.log(res);
     });
   }
 
