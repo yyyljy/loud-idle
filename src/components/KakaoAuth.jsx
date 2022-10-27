@@ -20,7 +20,7 @@ function KakaoAuth() {
         },
       })
       .then(function (response) {
-        console.log(response);
+        console.log(`POST response:${response}`);
       });
   }
 
@@ -65,10 +65,10 @@ function KakaoAuth() {
   function loginWithKakao() {
     Kakao.init(process.env.REACT_APP_KAKAO_KEY);
     Kakao.isInitialized();
-    Kakao.Auth.authorize({
+    const res = Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-    }).then(() => {
-      console("this is test");
+    }).then(function (response) {
+      console(`Auth response : ${response}`);
     });
   }
 
