@@ -16,16 +16,20 @@ function KakaoAuth() {
       setError(null);
       setData(null);
       setLoading(true);
-      const response = await axios.get({
-        method: "post",
-        url: "https://kauth.kakao.com/oauth/token",
-        data: {
-          grant_type: "authorization_code",
-          client_id: process.env.REACT_APP_KAKAO_APP_ID,
-          redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-          code: codeRecv,
-        },
-      });
+      const response = await axios
+        .get({
+          method: "post",
+          url: "https://kauth.kakao.com/oauth/token",
+          data: {
+            grant_type: "authorization_code",
+            client_id: process.env.REACT_APP_KAKAO_APP_ID,
+            redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+            code: codeRecv,
+          },
+        })
+        .then(() => {
+          console.log("asdjkljasd");
+        });
       setData(response.data);
     } catch (e) {
       setError(e);
@@ -44,7 +48,7 @@ function KakaoAuth() {
     htmlMsg = null;
     console.log("NOTHING");
   } else {
-    htmlMsg = <div>data</div>;
+    htmlMsg = <div>{data}</div>;
   }
 
   // const [isKakaoLoggedIn, setIsKakaoLoggedIn] = useState(false);
@@ -88,7 +92,7 @@ function KakaoAuth() {
   function loginWithKakao() {
     Kakao.init(process.env.REACT_APP_KAKAO_KEY);
     Kakao.isInitialized();
-    const res = Kakao.Auth.authorize({
+    Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
     });
   }
