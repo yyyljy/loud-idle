@@ -70,7 +70,7 @@ function KakaoAuth() {
         })
         .catch((e) => {
           console.log(e);
-          setError(e);
+          // setError(e);
         });
     }
   };
