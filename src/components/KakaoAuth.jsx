@@ -40,7 +40,13 @@ function KakaoAuth() {
           redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
           code: codeRecv,
         };
-        RestAPI("POST", _url, _data, setData);
+        if (RestAPI("POST", _url, _data, setData)) {
+          console.log("SUCCESS");
+          console.log(data``);
+        } else {
+          console.log("FAILED");
+          console.log(data);
+        }
         console.log(data);
       }
     } catch (e) {
