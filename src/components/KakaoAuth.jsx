@@ -29,24 +29,21 @@ function KakaoAuth() {
         setError(null);
         setData(null);
         setLoading(true);
-        console.log("et");
-        console.log(RestAPI("POST", _url, _sendData, setData));
+        const config = {
+          method: "POST",
+          url: "https://kauth.kakao.com/oauth/token",
+          data: qs.stringify({
+            grant_type: "authorization_code",
+            client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
+            redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+            code: codeRecv,
+          }),
+        };
+        const response = await axios(config).then((res) => {
+          setData(response.data);
+          console.log(data);
+        });
       }
-
-      // const config = {
-      //   method: "POST",
-      //   url: "https://kauth.kakao.com/oauth/token",
-      //   data: qs.stringify({
-      //     grant_type: "authorization_code",
-      //     client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
-      //     redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-      //     code: codeRecv,
-      //   }),
-      // };
-      // const response = await axios(config).then((res) => {
-      //   setData(response.data);
-      //   console.log(data);
-      // });
     } catch (e) {
       setError(e);
       console.log("ERROR?!!?!?");

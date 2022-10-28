@@ -2,7 +2,6 @@ import qs from "qs";
 import axios from "axios";
 
 async function RestAPI(_method, _url, _data, setData) {
-  alert("testasdasd");
   const res = { code: "", data: "" };
   const config = {
     method: _method,
