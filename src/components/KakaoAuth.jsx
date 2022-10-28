@@ -19,6 +19,7 @@ function KakaoAuth() {
         setError(null);
         setData(null);
         setLoading(true);
+        codeRecv = codeRecv[1];
       }
       const config = {
         method: "POST",
