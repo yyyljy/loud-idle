@@ -1,22 +1,13 @@
-import qs from "qs";
 import axios from "axios";
-import { useState } from "react";
 
-async function RestAPI(_method, _url, _data, setData) {
-  const [res, setRes] = useState("");
-  const config = {
-    method: _method,
-    url: _url,
-    data: qs.stringify(_data),
-  };
-  await axios(config)
+async function RestAPI(_config, setData) {
+  await axios(_config)
     .then((response) => {
-      setRes(response.data);
+      setData(response.data);
     })
     .catch((e) => {
-      setRes(e);
+      setData(e);
     });
-  setData(res);
 }
 
 export default RestAPI;

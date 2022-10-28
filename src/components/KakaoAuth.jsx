@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import qs from "qs";
+import RestAPI from "./RestAPI";
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
@@ -82,17 +83,17 @@ function KakaoAuth() {
     }
   }, [tokenData]);
 
-  async function RestAPI(_config, setData) {
-    await axios(_config)
-      .then((response) => {
-        console.log(response);
-        // setData(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-        // setData(e);
-      });
-  }
+  // async function RestAPI(_config, setData) {
+  //   await axios(_config)
+  //     .then((response) => {
+  //       console.log(response);
+  //       // setData(response.data);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //       // setData(e);
+  //     });
+  // }
 
   return (
     <>
