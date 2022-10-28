@@ -59,10 +59,9 @@ function KakaoAuth() {
       const config = {
         method: "POST",
         url: _url,
-        headers: {
+        header: {
           Authorization: "Bearer " + tokenData.access_token,
         },
-
       };
       await axios(config)
         .then((res) => {
