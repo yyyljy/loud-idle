@@ -48,7 +48,7 @@ function KakaoAuth() {
           console.log("FAILED");
           console.log(data);
         }
-        console.log(window.browser.cookies.getAll());
+        console.log(Cookies.getAll());
       }
     } catch (e) {
       setError(e);
