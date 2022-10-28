@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import qs from "qs";
-import { getAdditionalUserInfo } from "firebase/auth";
-import { async } from "@firebase/util";
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
@@ -43,9 +41,9 @@ function KakaoAuth() {
         };
         await axios(config).then((res) => {
           console.log(res.data);
-          getUserInfo();
-          // setTokenData(result);
+          setTokenData(res.data.access_token);
         });
+        await getUserInfo();
       }
     } catch (e) {
       console.log(error);
