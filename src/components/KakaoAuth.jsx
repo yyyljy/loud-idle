@@ -82,8 +82,9 @@ function KakaoAuth() {
     }
   }, [tokenData]);
 
-  async function RestAPI(_method, _url, _data, setData) {
+  async function RestAPI(_method, _url, _headers, _data, setData) {
     const config = {
+      headers: _headers,
       method: _method,
       url: _url,
       data: qs.stringify(_data),
