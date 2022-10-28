@@ -68,10 +68,10 @@ function KakaoAuth() {
         header: qs.stringify({
           Authorization: `Bearer ${tokenData.access_token}`,
         }),
-        data: qs.stringify({
-          target_id_type: "user_id",
-          target_id: tokenData.id_token,
-        }),
+        data: {
+          //   target_id_type: "user_id",
+          //   target_id: process.env.REACT_APP_KAKAO_APP_ID,
+        },
       };
       await axios(config)
         .then((res) => {
