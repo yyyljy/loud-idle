@@ -15,9 +15,7 @@ function KakaoAuth() {
   let codeRecv = redirectURL.split("code=");
 
   const sendToken = async () => {
-    console.log("sendToken");
     try {
-      console.log("try");
       if (codeRecv.length === 2) {
         setError(null);
         setData(null);
@@ -32,8 +30,8 @@ function KakaoAuth() {
             code: codeRecv,
           }),
         };
-        const response = await axios(config).then((res) => {
-          setData(response.data);
+        await axios(config).then((res) => {
+          setData(res.data);
           console.log(data);
         });
       }

@@ -13,7 +13,6 @@ async function RestAPI(_method, _url, _data, setData) {
       res.code = "SUCCESS";
       res.data = response.data;
       setData(res);
-      alert(res);
       return true;
     })
     .catch((e) => {
