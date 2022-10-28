@@ -69,9 +69,13 @@ function KakaoAuth() {
           Authorization: `Bearer ${tokenData.access_token}`,
         }),
       };
-      await axios(config).then((res) => {
-        console.log(res);
-      });
+      await axios(config)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
   };
 
