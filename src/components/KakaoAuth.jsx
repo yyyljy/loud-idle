@@ -81,7 +81,7 @@ function KakaoAuth() {
     if (tokenData && !userData) {
       getUserData();
     }
-  }, [tokenData]);
+  }, [tokenData, userData]);
 
   // async function RestAPI(_config, setData) {
   //   await axios(_config)
@@ -109,7 +109,10 @@ function KakaoAuth() {
           alt="kakao-login-img"
         />
       </button>
-      {`Token Value : ${tokenData ? tokenData.access_token : "Please Login"}`}
+      {{ tokenData }
+        ? `Access Token : ${tokenData.access_token}`
+        : "Please Login"}
+      {{ userData } ? `UserID : ${userData}` : "Please Login"}
     </>
   );
 }
