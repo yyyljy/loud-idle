@@ -1,40 +1,48 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import qs from "qs";
+import RestAPI from "./RestAPI";
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
-
-  let redirectURL = window.location.href;
-  let codeRecv = redirectURL.split("code=");
+  const _url = "https://kauth.kakao.com/oauth/token";
+  const _sendData = "";
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  let redirectURL = window.location.href;
+  let codeRecv = redirectURL.split("code=");
+
   const sendToken = async () => {
     try {
       if (codeRecv.length === 2) {
-        codeRecv = codeRecv[1];
+        _sendData = {
+          grant_type: "authorization_code",
+          client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
+          redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+          code: codeRecv[1],
+        };
       }
       setError(null);
       setData(null);
       setLoading(true);
-      const config = {
-        method: "POST",
-        url: "https://kauth.kakao.com/oauth/token",
-        data: qs.stringify({
-          grant_type: "authorization_code",
-          client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
-          redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-          code: codeRecv,
-        }),
-      };
-      const response = await axios(config).then((res) => {
-        console.log(res.data);
-        setData(response.data);
-      });
-      // console.log(response.data);
+      console.log(RestAPI("POST", _url, _sendData));
+      // const config = {
+      //   method: "POST",
+      //   url: "https://kauth.kakao.com/oauth/token",
+      //   data: qs.stringify({
+      //     grant_type: "authorization_code",
+      //     client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
+      //     redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+      //     code: codeRecv,
+      //   }),
+      // };
+      // const response = await axios(config).then((res) => {
+      //   setData(response.data);
+      //   console.log(data);
+      // });
     } catch (e) {
       setError(e);
     }
@@ -44,15 +52,6 @@ function KakaoAuth() {
   useEffect(() => {
     sendToken();
   }, []);
-
-  let htmlMsg = "";
-  if (loading) htmlMsg = <div>로딩중..</div>;
-  if (error) htmlMsg = <div>에러가 발생했습니다</div>;
-  if (!data) {
-    htmlMsg = null;
-  } else {
-    htmlMsg = <div>{data}</div>;
-  }
 
   function loginWithKakao() {
     Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
