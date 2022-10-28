@@ -28,6 +28,7 @@ function KakaoAuth() {
       setError(null);
       setData(null);
       setLoading(true);
+      console.log("et");
       setData(RestAPI("POST", _url, _sendData));
       // const config = {
       //   method: "POST",
