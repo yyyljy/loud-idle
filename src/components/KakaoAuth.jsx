@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import qs from "qs";
 import { getAdditionalUserInfo } from "firebase/auth";
+import { async } from "@firebase/util";
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
@@ -58,7 +59,7 @@ function KakaoAuth() {
   // Host: kapi.kakao.com
   // Authorization: Bearer ${ACCESS_TOKEN}/KakaoAK ${APP_ADMIN_KEY}
   // Content-type: application/x-www-form-urlencoded;charset=utf-8
-  function getUserInfo() {
+  const getUserInfo = async () => {
     if (tokenData) {
       const _url = "https://kapi.kakao.com/v2/user/me";
       const config = {
@@ -68,11 +69,11 @@ function KakaoAuth() {
           Authorization: `Bearer ${tokenData.access_token}`,
         }),
       };
-      axios(config).then((res) => {
+      await axios(config).then((res) => {
         console.log(res);
       });
     }
-  }
+  };
 
   useEffect(() => {
     getToken();
