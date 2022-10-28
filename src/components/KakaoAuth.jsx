@@ -59,7 +59,9 @@ function KakaoAuth() {
   // Host: kapi.kakao.com
   // Authorization: Bearer ${ACCESS_TOKEN}/KakaoAK ${APP_ADMIN_KEY}
   // Content-type: application/x-www-form-urlencoded;charset=utf-8
+
   const getUserInfo = async () => {
+    console.log(Kakao.Auth.getStatusInfo());
     if (tokenData) {
       const _url = "https://kapi.kakao.com/v2/user/me";
       const config = {
