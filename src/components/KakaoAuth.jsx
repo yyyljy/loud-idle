@@ -73,7 +73,7 @@ function KakaoAuth() {
           alt="kakao-login-img"
         />
       </button>
-      {`Token Value : ${data}`}
+      {`Token Value : ${data.access_token}`}
     </>
   );
 }
