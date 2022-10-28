@@ -24,12 +24,13 @@ function KakaoAuth() {
           redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
           code: codeRecv[1],
         };
+        setError(null);
+        setData(null);
+        setLoading(true);
+        console.log("et");
+        console.log(RestAPI("POST", _url, _sendData, setData));
       }
-      setError(null);
-      setData(null);
-      setLoading(true);
-      console.log("et");
-      setData(RestAPI("POST", _url, _sendData));
+
       // const config = {
       //   method: "POST",
       //   url: "https://kauth.kakao.com/oauth/token",
