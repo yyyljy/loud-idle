@@ -8,6 +8,7 @@ function KakaoAuth() {
   const Kakao = window.Kakao;
 
   const [tokenData, setTokenData] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -43,7 +44,7 @@ function KakaoAuth() {
         await axios(config).then((res) => {
           const result = res.data;
           setTokenData(result);
-          console.log(res);
+          console.log(tokenData);
         });
       }
     } catch (e) {
@@ -52,11 +53,6 @@ function KakaoAuth() {
     }
     setLoading(false);
   };
-
-  // GET/POST /v2/user/me HTTP/1.1
-  // Host: kapi.kakao.com
-  // Authorization: Bearer ${ACCESS_TOKEN}/KakaoAK ${APP_ADMIN_KEY}
-  // Content-type: application/x-www-form-urlencoded;charset=utf-8
 
   const getUserInfo = async () => {
     if (tokenData) {
@@ -67,17 +63,15 @@ function KakaoAuth() {
         headers: {
           Authorization: "Bearer " + tokenData.access_token,
         },
-        // data: qs.stringify({
-        //   target_id_type: "user_id",
-        //   target_id: "12345",
-        // }),
       };
       await axios(config)
         .then((res) => {
-          console.log(res);
+          setUserData(res.data);
+          console.log(userData);
         })
         .catch((e) => {
-          console.log(e);
+          setError(e);
+          console.log(error);
         });
     }
   };
@@ -85,7 +79,7 @@ function KakaoAuth() {
   useEffect(() => {
     getToken();
     getUserInfo();
-  }, [tokenData]);
+  }, []);
 
   return (
     <>
