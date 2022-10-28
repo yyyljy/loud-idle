@@ -42,9 +42,8 @@ function KakaoAuth() {
           }),
         };
         await axios(config).then((res) => {
-          const result = res.data;
           console.log(res.data);
-          setTokenData(result);
+          // setTokenData(result);
         });
       }
     } catch (e) {
@@ -67,7 +66,7 @@ function KakaoAuth() {
       await axios(config)
         .then((res) => {
           console.log(res);
-          setUserData(res);
+          // setUserData(res);
         })
         .catch((e) => {
           console.log(error);
