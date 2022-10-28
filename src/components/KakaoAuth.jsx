@@ -19,8 +19,6 @@ function KakaoAuth() {
     Kakao.isInitialized();
     Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-    }).then(() => {
-      console.log("test");
     });
   }
 
@@ -66,13 +64,13 @@ function KakaoAuth() {
       const config = {
         method: "POST",
         url: _url,
-        header: {
+        headers: {
           Authorization: "Bearer " + tokenData.access_token,
         },
-        data: qs.stringify({
-          target_id_type: "user_id",
-          target_id: "12345",
-        }),
+        // data: qs.stringify({
+        //   target_id_type: "user_id",
+        //   target_id: "12345",
+        // }),
       };
       await axios(config)
         .then((res) => {
