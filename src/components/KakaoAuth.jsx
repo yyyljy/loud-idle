@@ -60,7 +60,7 @@ function KakaoAuth() {
           Authorization: "Bearer " + tokenData.access_token,
         },
       };
-      RestAPI("POST", _url, config, setUserData);
+      RestAPI(config, setUserData);
       // axios(config)
       //   .then((res) => {
       //     setUserData(res);
