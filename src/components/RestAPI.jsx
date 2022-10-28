@@ -2,7 +2,7 @@ import qs from "qs";
 import axios from "axios";
 
 async function RestAPI(_method, _url, _data, setData) {
-  console.log("testasdasd");
+  alert("testasdasd");
   const res = { code: "", data: "" };
   const config = {
     method: _method,
@@ -14,7 +14,7 @@ async function RestAPI(_method, _url, _data, setData) {
       res.code = "SUCCESS";
       res.data = response.data;
       setData(res);
-      console.log(res);
+      alert(res);
       return true;
     })
     .catch((e) => {
