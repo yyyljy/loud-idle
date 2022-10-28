@@ -43,7 +43,7 @@ function KakaoAuth() {
         };
         await axios(config).then((res) => {
           const result = res.data;
-          console.log(tokenData);
+          console.log(res.data);
           setTokenData(result);
         });
       }
@@ -66,7 +66,7 @@ function KakaoAuth() {
       };
       await axios(config)
         .then((res) => {
-          console.log(userData);
+          console.log(res.data);
           setUserData(res.data);
         })
         .catch((e) => {
