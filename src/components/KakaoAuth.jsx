@@ -82,7 +82,7 @@ function KakaoAuth() {
   useEffect(() => {
     getToken();
     getUserInfo();
-  }, []);
+  }, [tokenData]);
 
   return (
     <>
