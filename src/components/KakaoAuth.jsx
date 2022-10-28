@@ -40,8 +40,9 @@ function KakaoAuth() {
           }),
         };
         await axios(config).then((res) => {
-          console.log(res.data);
-          setTokenData(res.data.access_token);
+          const result = res;
+          console.log(result.data);
+          setTokenData(result.data);
         });
         await getUserInfo();
       }
@@ -58,11 +59,11 @@ function KakaoAuth() {
       const config = {
         method: "POST",
         url: _url,
-        header: {
+        headers: {
           Authorization: "Bearer " + tokenData.access_token,
         },
       };
-      await axios(config)
+      axios(config)
         .then((res) => {
           console.log(res);
           // setUserData(res);
@@ -76,7 +77,7 @@ function KakaoAuth() {
 
   useEffect(() => {
     getToken();
-    // getUserInfo();
+    getUserInfo();
   }, []);
 
   return (
