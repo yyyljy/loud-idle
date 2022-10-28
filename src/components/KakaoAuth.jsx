@@ -65,9 +65,9 @@ function KakaoAuth() {
       const config = {
         method: "POST",
         url: _url,
-        header: qs.stringify({
+        header: {
           Authorization: `Bearer ${tokenData.access_token}`,
-        }),
+        },
         // data: {
         //   target_id_type: "user_id",
         //   target_id: process.env.REACT_APP_KAKAO_APP_ID,
