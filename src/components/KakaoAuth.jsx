@@ -1,24 +1,33 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import qs from "qs";
-import RestAPI from "./RestAPI";
-import { Cookies } from "react-cookie";
+import { getAdditionalUserInfo } from "firebase/auth";
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
 
-  const [data, setData] = useState(null);
+  const [tokenData, setTokenData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   let redirectURL = window.location.href;
   let codeRecv = redirectURL.split("code=");
 
-  const sendToken = async () => {
+  function loginKakao() {
+    Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
+    Kakao.isInitialized();
+    Kakao.Auth.authorize({
+      redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+    }).then(() => {
+      console.log("test");
+    });
+  }
+
+  const getToken = async () => {
     try {
       if (codeRecv.length === 2) {
         setError(null);
-        setData(null);
+        setTokenData(null);
         setLoading(true);
         codeRecv = codeRecv[1];
         const _url = "https://kauth.kakao.com/oauth/token";
@@ -34,7 +43,7 @@ function KakaoAuth() {
         };
         await axios(config).then((res) => {
           const result = res.data;
-          setData(result);
+          setTokenData(result);
           console.log(result);
         });
       }
@@ -45,26 +54,37 @@ function KakaoAuth() {
     setLoading(false);
   };
 
-  useEffect(() => {
-    sendToken();
-  }, []);
-
-  function loginWithKakao() {
-    Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
-    Kakao.isInitialized();
-    Kakao.Auth.authorize({
-      redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-    }).then(() => {
-      console.log("test");
-    });
+  // GET/POST /v2/user/me HTTP/1.1
+  // Host: kapi.kakao.com
+  // Authorization: Bearer ${ACCESS_TOKEN}/KakaoAK ${APP_ADMIN_KEY}
+  // Content-type: application/x-www-form-urlencoded;charset=utf-8
+  function getUserInfo() {
+    if (tokenData) {
+      const _url = "https://kapi.kakao.com/v2/user/me";
+      const config = {
+        method: "POST",
+        url: _url,
+        header: qs.stringify({
+          Authorization: `Bearer ${tokenData.access_token}`,
+        }),
+      };
+      axios(config).then((res) => {
+        console.log(res);
+      });
+    }
   }
+
+  useEffect(() => {
+    getToken();
+    getUserInfo();
+  }, []);
 
   return (
     <>
       <button
         id="custom-login-btn"
         onClick={() => {
-          loginWithKakao();
+          loginKakao();
         }}
       >
         <img
@@ -73,7 +93,7 @@ function KakaoAuth() {
           alt="kakao-login-img"
         />
       </button>
-      {`Token Value : ${data ? data.access_token : "Please Login"}`}
+      {`Token Value : ${tokenData ? tokenData.access_token : "Please Login"}`}
     </>
   );
 }
