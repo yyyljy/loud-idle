@@ -5,7 +5,6 @@ import RestAPI from "./RestAPI";
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
-  const _url = "https://kauth.kakao.com/oauth/token";
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -22,7 +21,7 @@ function KakaoAuth() {
         setLoading(true);
         const config = {
           method: "POST",
-          url: _url,
+          url: "https://kauth.kakao.com/oauth/token",
           data: qs.stringify({
             grant_type: "authorization_code",
             client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
