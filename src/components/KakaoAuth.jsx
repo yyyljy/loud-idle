@@ -16,7 +16,9 @@ function KakaoAuth() {
   let codeRecv = redirectURL.split("code=");
 
   const sendToken = async () => {
+    console.log("sendToken");
     try {
+      console.log("try");
       if (codeRecv.length === 2) {
         _sendData = {
           grant_type: "authorization_code",
@@ -47,6 +49,7 @@ function KakaoAuth() {
       // });
     } catch (e) {
       setError(e);
+      console.log("ERROR?!!?!?");
     }
     setLoading(false);
     console.log(data);
