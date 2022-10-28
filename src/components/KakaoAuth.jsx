@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import qs from "qs";
 import RestAPI from "./RestAPI";
+import { Cookies } from "react-cookie";
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
@@ -47,7 +48,7 @@ function KakaoAuth() {
           console.log("FAILED");
           console.log(data);
         }
-        console.log(data);
+        console.log(Cookies.getAll());
       }
     } catch (e) {
       setError(e);
