@@ -22,37 +22,24 @@ function KakaoAuth() {
         setLoading(true);
         codeRecv = codeRecv[1];
         const _url = "https://kauth.kakao.com/oauth/token";
-        // const config = {
-        //   method: "POST",
-        //   url: "https://kauth.kakao.com/oauth/token",
-        //   data: qs.stringify({
-        //     grant_type: "authorization_code",
-        //     client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
-        //     redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-        //     code: codeRecv,
-        //   }),
-        // };
-        // await axios(config).then((res) => {
-        //   setData(res.data);
-        // });
-        const _data = {
-          grant_type: "authorization_code",
-          client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
-          redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-          code: codeRecv,
+        const config = {
+          method: "POST",
+          url: _url,
+          data: qs.stringify({
+            grant_type: "authorization_code",
+            client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
+            redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+            code: codeRecv,
+          }),
         };
-        if (RestAPI("POST", _url, _data, setData)) {
-          console.log("SUCCESS");
-          console.log(data);
-        } else {
-          console.log("FAILED");
-          console.log(data);
-        }
-        console.log(Cookies.getAll());
+        await axios(config).then((res) => {
+          const result = res.data;
+          setData(result);
+        });
       }
     } catch (e) {
       setError(e);
-      console.log(e);
+      console.log(error);
     }
     setLoading(false);
   };
