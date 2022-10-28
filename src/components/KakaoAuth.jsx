@@ -6,7 +6,6 @@ import RestAPI from "./RestAPI";
 function KakaoAuth() {
   const Kakao = window.Kakao;
   const _url = "https://kauth.kakao.com/oauth/token";
-  const _sendData = "";
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -20,18 +19,12 @@ function KakaoAuth() {
     try {
       console.log("try");
       if (codeRecv.length === 2) {
-        _sendData = {
-          grant_type: "authorization_code",
-          client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
-          redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-          code: codeRecv[1],
-        };
         setError(null);
         setData(null);
         setLoading(true);
         const config = {
           method: "POST",
-          url: "https://kauth.kakao.com/oauth/token",
+          url: _url,
           data: qs.stringify({
             grant_type: "authorization_code",
             client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
@@ -46,10 +39,8 @@ function KakaoAuth() {
       }
     } catch (e) {
       setError(e);
-      console.log("ERROR?!!?!?");
     }
     setLoading(false);
-    console.log(data);
   };
 
   useEffect(() => {
