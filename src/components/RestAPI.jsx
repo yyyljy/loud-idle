@@ -16,8 +16,7 @@ async function RestAPI(_method, _url, _data, setData) {
     .catch((e) => {
       setRes(e);
     });
-  alert(res);
-  setData(res);
+  await setData(res);
 }
 
 export default RestAPI;
