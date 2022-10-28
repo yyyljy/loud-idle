@@ -28,7 +28,7 @@ function KakaoAuth() {
       setError(null);
       setData(null);
       setLoading(true);
-      console.log(RestAPI("POST", _url, _sendData));
+      setData(RestAPI("POST", _url, _sendData));
       // const config = {
       //   method: "POST",
       //   url: "https://kauth.kakao.com/oauth/token",
@@ -47,6 +47,7 @@ function KakaoAuth() {
       setError(e);
     }
     setLoading(false);
+    console.log(data);
   };
 
   useEffect(() => {
