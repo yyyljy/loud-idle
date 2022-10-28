@@ -20,22 +20,28 @@ function KakaoAuth() {
         setData(null);
         setLoading(true);
         codeRecv = codeRecv[1];
-        const config = {
-          method: "POST",
-          url: "https://kauth.kakao.com/oauth/token",
-          data: qs.stringify({
-            grant_type: "authorization_code",
-            client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
-            redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-            code: codeRecv,
-          }),
+        const _url = "https://kauth.kakao.com/oauth/token";
+        // const config = {
+        //   method: "POST",
+        //   url: "https://kauth.kakao.com/oauth/token",
+        //   data: qs.stringify({
+        //     grant_type: "authorization_code",
+        //     client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
+        //     redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+        //     code: codeRecv,
+        //   }),
+        // };
+        // await axios(config).then((res) => {
+        //   setData(res.data);
+        // });
+        const _data = {
+          grant_type: "authorization_code",
+          client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
+          redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+          code: codeRecv,
         };
-        const response = await axios(config).then((res) => {
-          console.log(response);
-          console.log(res);
-          // setData(resp.data);
-          // console.log(data);
-        });
+        RestAPI("POST", _url, _data, setData);
+        console.log(data);
       }
     } catch (e) {
       setError(e);
