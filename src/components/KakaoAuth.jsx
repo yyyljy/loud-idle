@@ -66,8 +66,8 @@ function KakaoAuth() {
       };
       await axios(config)
         .then((res) => {
-          console.log(res.data);
-          setUserData(res.data);
+          console.log(res);
+          setUserData(res);
         })
         .catch((e) => {
           console.log(error);
