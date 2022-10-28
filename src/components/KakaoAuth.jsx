@@ -85,10 +85,12 @@ function KakaoAuth() {
   async function RestAPI(_config, setData) {
     await axios(_config)
       .then((response) => {
-        setData(response.data);
+        console.log(response);
+        // setData(response.data);
       })
       .catch((e) => {
-        setData(e);
+        console.log(e);
+        // setData(e);
       });
   }
 
