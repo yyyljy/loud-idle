@@ -66,12 +66,12 @@ function KakaoAuth() {
         method: "POST",
         url: _url,
         header: {
-          Authorization: `Bearer ${tokenData.access_token}`,
+          Authorization: "Bearer " + tokenData.access_token,
         },
-        // data: {
-        //   target_id_type: "user_id",
-        //   target_id: process.env.REACT_APP_KAKAO_APP_ID,
-        // },
+        data: {
+          target_id_type: "user_id",
+          target_id: process.env.REACT_APP_KAKAO_APP_ID,
+        },
       };
       await axios(config)
         .then((res) => {
