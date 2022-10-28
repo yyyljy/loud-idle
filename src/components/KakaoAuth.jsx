@@ -70,7 +70,7 @@ function KakaoAuth() {
         }),
         data: qs.stringify({
           target_id_type: "user_id",
-          target_id: "815250",
+          target_id: tokenData.id_token,
         }),
       };
       await axios(config)
