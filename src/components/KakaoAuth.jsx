@@ -40,20 +40,17 @@ function KakaoAuth() {
           }),
         };
         await axios(config).then((res) => {
-          const result = res;
-          console.log(result.data);
-          setTokenData(result.data);
+          setTokenData(res.data);
         });
-        await getUserInfo();
       }
     } catch (e) {
+      setError(e);
       console.log(error);
-      // setError(e);
     }
     setLoading(false);
   };
 
-  const getUserInfo = async () => {
+  const getUserData = async () => {
     if (tokenData) {
       const _url = "https://kapi.kakao.com/v2/user/me";
       const config = {
@@ -63,15 +60,16 @@ function KakaoAuth() {
           Authorization: "Bearer " + tokenData.access_token,
         },
       };
-      axios(config)
-        .then((res) => {
-          console.log(res);
-          // setUserData(res);
-        })
-        .catch((e) => {
-          console.log(e);
-          // setError(e);
-        });
+      RestAPI("POST", _url, config, setUserData);
+      // axios(config)
+      //   .then((res) => {
+      //     setUserData(res);
+      //     console.log(userData);
+      //   })
+      //   .catch((e) => {
+      //     setError(e);
+      //     console.log(error);
+      //   });
     }
   };
 
@@ -80,9 +78,24 @@ function KakaoAuth() {
       getToken();
     }
     if (tokenData && !userData) {
-      getUserInfo();
+      getUserData();
     }
   }, [tokenData]);
+
+  async function RestAPI(_method, _url, _data, setData) {
+    const config = {
+      method: _method,
+      url: _url,
+      data: qs.stringify(_data),
+    };
+    await axios(config)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((e) => {
+        setData(e);
+      });
+  }
 
   return (
     <>
