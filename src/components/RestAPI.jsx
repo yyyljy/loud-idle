@@ -12,11 +12,13 @@ async function RestAPI(_method, _url, _data) {
     .then((response) => {
       res.code = "SUCCESS";
       res.data = response.data;
+      console.log(res);
       return res;
     })
     .catch((e) => {
       res.code = "ERROR";
       res.data = e;
+      console.log(res);
       return res;
     });
 }
