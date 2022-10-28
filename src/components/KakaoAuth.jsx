@@ -109,10 +109,8 @@ function KakaoAuth() {
           alt="kakao-login-img"
         />
       </button>
-      {{ tokenData }
-        ? `Access Token : ${tokenData.access_token}`
-        : "Please Login"}
-      {{ userData } ? `UserID : ${userData}` : "Please Login"}
+      {tokenData ? `Access Token : ${tokenData.access_token}` : "Please Login"}
+      {userData ? `UserID : ${userData}` : "Please Login"}
     </>
   );
 }
