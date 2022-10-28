@@ -61,7 +61,7 @@ function KakaoAuth() {
   // Content-type: application/x-www-form-urlencoded;charset=utf-8
 
   const getUserInfo = async () => {
-    console.log(Kakao.Auth.getStatusInfo());
+    console.log(Kakao.API.request());
     if (tokenData) {
       const _url = "https://kapi.kakao.com/v2/user/me";
       const config = {
