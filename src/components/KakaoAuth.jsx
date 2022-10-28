@@ -69,7 +69,7 @@ function KakaoAuth() {
           // setUserData(res);
         })
         .catch((e) => {
-          console.log(error);
+          console.log(e);
           setError(e);
         });
     }
