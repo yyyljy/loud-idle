@@ -42,7 +42,7 @@ function KakaoAuth() {
         };
         if (RestAPI("POST", _url, _data, setData)) {
           console.log("SUCCESS");
-          console.log(data``);
+          console.log(data);
         } else {
           console.log("FAILED");
           console.log(data);

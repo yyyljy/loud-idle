@@ -1,8 +1,9 @@
 import qs from "qs";
 import axios from "axios";
+import { useState } from "react";
 
 async function RestAPI(_method, _url, _data, setData) {
-  const res = "EMPTY";
+  const [res, setRes] = useState("");
   const config = {
     method: _method,
     url: _url,
@@ -10,13 +11,13 @@ async function RestAPI(_method, _url, _data, setData) {
   };
   await axios(config)
     .then((response) => {
-      setData(response.data);
-      return true;
+      setRes(response.data);
     })
     .catch((e) => {
-      setData(e);
-      return false;
+      setRes(e);
     });
+  alert(res);
+  setData(res);
 }
 
 export default RestAPI;
