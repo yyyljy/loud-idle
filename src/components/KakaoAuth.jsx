@@ -61,7 +61,6 @@ function KakaoAuth() {
   // Content-type: application/x-www-form-urlencoded;charset=utf-8
 
   const getUserInfo = async () => {
-    console.log(Kakao.API.request());
     if (tokenData) {
       const _url = "https://kapi.kakao.com/v2/user/me";
       const config = {
@@ -72,7 +71,7 @@ function KakaoAuth() {
         },
         data: qs.stringify({
           target_id_type: "user_id",
-          target_id: tokenData.id,
+          target_id: "12345",
         }),
       };
       await axios(config)
