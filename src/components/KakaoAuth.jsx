@@ -48,7 +48,7 @@ function KakaoAuth() {
       }
     } catch (e) {
       console.log(error);
-      setError(e);
+      // setError(e);
     }
     setLoading(false);
   };
@@ -62,6 +62,7 @@ function KakaoAuth() {
         headers: {
           Authorization: "Bearer " + tokenData.access_token,
         },
+
       };
       await axios(config)
         .then((res) => {
