@@ -31,8 +31,8 @@ function KakaoAuth() {
           code: codeRecv,
         }),
       };
-      await axios(config).then((res) => {
-        setData(res.data);
+      const response = await axios(config).then((res) => {
+        setData(response.data);
         console.log(data);
       });
     } catch (e) {
