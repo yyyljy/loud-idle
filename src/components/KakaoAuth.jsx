@@ -43,6 +43,7 @@ function KakaoAuth() {
         };
         await axios(config).then((res) => {
           console.log(res.data);
+          getUserInfo();
           // setTokenData(result);
         });
       }
@@ -77,7 +78,7 @@ function KakaoAuth() {
 
   useEffect(() => {
     getToken();
-    getUserInfo();
+    // getUserInfo();
   }, []);
 
   return (
