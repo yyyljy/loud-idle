@@ -65,6 +65,8 @@ function KakaoAuth() {
     Kakao.isInitialized();
     Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+    }).then(() => {
+      console.log("test");
     });
   }
 
