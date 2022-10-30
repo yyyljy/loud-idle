@@ -40,9 +40,10 @@ function KakaoAuth() {
             code: codeRecv,
           }),
         };
-        await axios(config).then((res) => {
-          setTokenData(res.data);
-        });
+        RestAPI(config, setTokenData);
+        // await axios(config).then((res) => {
+        //   setTokenData(res.data);
+        // });
       }
     } catch (e) {
       setError(e);
