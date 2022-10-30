@@ -10,6 +10,7 @@ function KakaoAuth() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [respon, setRespon] = useState(null);
 
   let redirectURL = window.location.href;
   let codeRecv = redirectURL.split("code=");
@@ -41,9 +42,6 @@ function KakaoAuth() {
           }),
         };
         RestAPI(config, setTokenData);
-        // await axios(config).then((res) => {
-        //   setTokenData(res.data);
-        // });
       }
     } catch (e) {
       setError(e);
@@ -66,6 +64,20 @@ function KakaoAuth() {
     }
   };
 
+  const getScope = async () => {
+    if (userData) {
+      const config = {
+        url: "https://kauth.kakao.com/oauth/authorize",
+        method: "GET",
+        client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
+        redirect_uri: redirectURL,
+        response_type: "code",
+        scope: "account_email, gender",
+      };
+      RestAPI(config, setRespon);
+    }
+  };
+
   useEffect(() => {
     if (!tokenData) {
       getToken();
@@ -73,7 +85,10 @@ function KakaoAuth() {
     if (tokenData && !userData) {
       getUserData();
     }
-  }, [tokenData, userData]);
+    if (tokenData && userData && !respon) {
+      getScope();
+    }
+  }, [tokenData, userData, respon]);
 
   return (
     <>
@@ -95,6 +110,7 @@ function KakaoAuth() {
           : "Please Login"}
       </p>
       <p>{userData ? `UserID : ${userData.id}` : "Please Login"}</p>
+      <p>{respon ? `Response : ${respon}` : "Please Login"}</p>
     </>
   );
 }
