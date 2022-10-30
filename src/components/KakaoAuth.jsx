@@ -25,11 +25,11 @@ function KakaoAuth() {
   const getToken = async () => {
     try {
       if (codeRecv.length === 2) {
+        codeRecv = codeRecv[1];
+        const _url = "https://kauth.kakao.com/oauth/token";
         setError(null);
         setTokenData(null);
         setLoading(true);
-        codeRecv = codeRecv[1];
-        const _url = "https://kauth.kakao.com/oauth/token";
         const config = {
           method: "POST",
           url: _url,
@@ -62,15 +62,6 @@ function KakaoAuth() {
         },
       };
       RestAPI(config, setUserData);
-      // axios(config)
-      //   .then((res) => {
-      //     setUserData(res);
-      //     console.log(userData);
-      //   })
-      //   .catch((e) => {
-      //     setError(e);
-      //     console.log(error);
-      //   });
     }
   };
 
@@ -82,18 +73,6 @@ function KakaoAuth() {
       getUserData();
     }
   }, [tokenData, userData]);
-
-  // async function RestAPI(_config, setData) {
-  //   await axios(_config)
-  //     .then((response) => {
-  //       console.log(response);
-  //       // setData(response.data);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //       // setData(e);
-  //     });
-  // }
 
   return (
     <>
