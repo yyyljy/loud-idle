@@ -122,12 +122,12 @@ function KakaoAuth() {
             console.log("test4");
           } else {
             console.log("???");
-            await Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
-            await Kakao.Auth.setAccessToken(tokenData);
-            await Kakao.Auth.getAccessToken();
+            Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
             console.log("test3");
-            await Kakao.Auth.getStatusInfo();
+            await Kakao.Auth.setAccessToken(tokenData);
             console.log("test4");
+            await Kakao.Auth.getAccessToken();
+            await Kakao.Auth.getStatusInfo();
           }
         }
       } catch (e) {
