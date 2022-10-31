@@ -110,14 +110,16 @@ function KakaoAuth() {
         Authorization: "Bearer " + tokenData.access_token,
       },
     };
-    await fetch("https://kapi.kakao.com/v1/api/talk/profile", {
+    fetch("https://kapi.kakao.com/v1/api/talk/profile", {
       headers: {
         Authorization: `Bearer ${tokenData.access_token}`,
       },
     })
-      .then(function (res) {
-        return res.json();
-      })
+      .then(
+        await function (res) {
+          return res.json();
+        }
+      )
       .then(function (parsedData) {
         console.log(parsedData);
         setScope(parsedData);
