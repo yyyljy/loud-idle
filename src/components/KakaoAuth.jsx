@@ -14,12 +14,7 @@ function KakaoAuth() {
   const [error, setError] = useState(null);
   const [scope, setScope] = useState(null);
 
-  let redirectURL = window.location.href;
-  let codeRecv = redirectURL.split("code=");
-
   async function loginKakao() {
-    let codeCookie = "";
-    console.log("test1");
     await Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
     await setIsInitialized(Kakao.isInitialized());
     await Kakao.Auth.authorize({
@@ -91,16 +86,12 @@ function KakaoAuth() {
   // };
 
   useEffect(() => {
-    console.log("test3");
-    console.log("test3");
-    console.log("test3");
-    let codeCookie = document.cookie.split("authorize-access-token=");
-    console.log(document.cookie);
-    console.log(codeCookie);
+    let redirectURL = window.location.href;
+    let codeURI = redirectURL.split("code=");
     let code = "";
-    if (codeCookie.length === 2) {
+    if (codeURI.length === 2) {
       // setCodeData(codeCookie[1]);
-      code = codeCookie[1];
+      code = codeURI[1];
       console.log(code);
     }
 
