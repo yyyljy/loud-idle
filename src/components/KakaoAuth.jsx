@@ -39,7 +39,6 @@ function KakaoAuth() {
             client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
             redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
             code: codeRecv,
-            // scope: "account_email, gender",
           }),
         };
         RestAPI(config, setTokenData);
@@ -86,7 +85,7 @@ function KakaoAuth() {
     if (tokenData && !userData) {
       getUserData();
     }
-    if (tokenData && userData && !respon) {
+    if (tokenData && userData && !scope) {
       getScope();
     }
   }, [tokenData, userData, scope]);
