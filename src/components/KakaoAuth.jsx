@@ -95,7 +95,7 @@ function KakaoAuth() {
       getAgreement();
     }
     if (!scope) {
-      getAdditionalAgreement();
+      // getAdditionalAgreement();
     }
   }, [tokenData, userData]);
 
@@ -117,7 +117,7 @@ function KakaoAuth() {
         }
       );
       const result = await response.json();
-      console.log(result);
+      await console.log(result);
     } catch (e) {
       console.log(e);
     }
