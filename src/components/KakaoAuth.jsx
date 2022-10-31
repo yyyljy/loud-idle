@@ -10,7 +10,7 @@ function KakaoAuth() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [respon, setRespon] = useState(null);
+  const [scope, setScope] = useState(null);
 
   let redirectURL = window.location.href;
   let codeRecv = redirectURL.split("code=");
@@ -65,20 +65,18 @@ function KakaoAuth() {
     }
   };
 
-  // const getScope = async () => {
-  //   if (userData) {
-  //     const config = {
-  //       headers :
-  //       url: "https://kauth.kakao.com/oauth/authorize",
-  //       method: "GET",
-  //       client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
-  //       redirect_uri: redirectURL,
-  //       response_type: "code",
-  //       scope: "account_email, gender",
-  //     };
-  //     RestAPI(config, setRespon);
-  //   }
-  // };
+  const getScope = async () => {
+    if (userData) {
+      const config = {
+        headers: {
+          Authorization: "Bearer " + tokenData.access_token,
+        },
+        url: "https://kapi.kakao.com/v2/user/scopes",
+        method: "GET",
+      };
+      RestAPI(config, setScope);
+    }
+  };
 
   useEffect(() => {
     if (!tokenData) {
@@ -88,10 +86,10 @@ function KakaoAuth() {
     if (tokenData && !userData) {
       getUserData();
     }
-    // if (tokenData && userData && !respon) {
-    //   getScope();
-    // }
-  }, [tokenData, userData, respon]);
+    if (tokenData && userData && !respon) {
+      getScope();
+    }
+  }, [tokenData, userData, scope]);
 
   return (
     <>
@@ -113,7 +111,7 @@ function KakaoAuth() {
           : "Please Login"}
       </p>
       <p>{userData ? `UserID : ${userData.id}` : "Please Login"}</p>
-      <p>{respon ? `Response : ${respon}` : "Please Login"}</p>
+      <p>{scope ? `Response : ${scope}` : "Please Login"}</p>
     </>
   );
 }
