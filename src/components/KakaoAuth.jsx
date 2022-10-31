@@ -100,7 +100,7 @@ function KakaoAuth() {
     // }
   }, [tokenData, userData, scope]);
 
-  function getAdditionalAgreement() {
+  const getAdditionalAgreement = async () => {
     const url = "https://kauth.kakao.com/v1/api/talk/profile";
     const config = {
       method: "POST",
@@ -109,8 +109,15 @@ function KakaoAuth() {
         Authorization: "Bearer " + tokenData.access_token,
       },
     };
-    RestAPI(config, setScope);
-  }
+    await axios
+      .get("https://kauth.kakao.com/v1/api/talk/profile", config)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <>
