@@ -94,7 +94,9 @@ function KakaoAuth() {
       getUserData();
       getAgreement();
     }
-    getAdditionalAgreement();
+    if (!scope) {
+      getAdditionalAgreement();
+    }
     // if (tokenData && userData && !scope) {
     //   getScope();
     // }
