@@ -6,8 +6,6 @@ import RestAPI from "./RestAPI";
 function KakaoAuth() {
   const Kakao = window.Kakao;
 
-  const [isInitialized, setIsInitialized] = useState(false);
-  const [codeData, setCodeData] = useState(null);
   const [tokenData, setTokenData] = useState(null);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -16,7 +14,7 @@ function KakaoAuth() {
 
   async function loginKakao() {
     await Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
-    await setIsInitialized(Kakao.isInitialized());
+    await Kakao.isInitialized();
     await Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
     });
@@ -63,9 +61,7 @@ function KakaoAuth() {
     let codeURI = redirectURL.split("code=");
     let code = "";
     if (codeURI.length === 2) {
-      // setCodeData(codeCookie[1]);
       code = codeURI[1];
-      console.log(code);
     }
 
     // async function token() {
@@ -102,7 +98,9 @@ function KakaoAuth() {
               code: code,
             }),
           };
-          RestAPI(config, setTokenData);
+          await RestAPI(config, setTokenData);
+          await Kakao.Auth.setAccessToken(tokenData);
+          await Kakao.Auth.getStatusInfo();
         }
       } catch (e) {
         setError(e);
@@ -114,6 +112,7 @@ function KakaoAuth() {
     if (code) {
       if (!tokenData) token();
     }
+
     // if (!tokenData) {
     //   getToken();
     // }
