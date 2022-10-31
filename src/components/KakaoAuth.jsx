@@ -80,7 +80,7 @@ function KakaoAuth() {
   const getAgreement = async () => {
     if (userData) {
       const res = await axios({
-        url: `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}/scope&response_type=code&scope=account_email,gender`,
+        url: `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}/scope&response_type=code&scope=account_email,gender,profile`,
       });
       console.log(res);
     }
