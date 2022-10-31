@@ -112,7 +112,8 @@ function KakaoAuth() {
     async function setToken() {
       try {
         if (tokenData) {
-          await Kakao.Auth.setAccessToken(tokenData);
+          await Kakao.Auth.getAccessToken();
+          // await Kakao.Auth.setAccessToken(tokenData);
           console.log("test3");
           await Kakao.Auth.getStatusInfo();
           console.log("test4");
