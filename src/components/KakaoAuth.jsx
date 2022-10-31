@@ -101,10 +101,6 @@ function KakaoAuth() {
           console.log("test1");
           await RestAPI(config, setTokenData);
           console.log("test2");
-          Kakao.Auth.setAccessToken(tokenData);
-          console.log("test3");
-          Kakao.Auth.getStatusInfo();
-          console.log("test4");
         }
       } catch (e) {
         setError(e);
@@ -113,8 +109,25 @@ function KakaoAuth() {
       setLoading(false);
     }
 
+    async function setToken() {
+      try {
+        if (tokenData) {
+          await Kakao.Auth.setAccessToken(tokenData);
+          console.log("test3");
+          await Kakao.Auth.getStatusInfo();
+          console.log("test4");
+        }
+      } catch (e) {
+        setError(e);
+        console.log(e);
+      }
+    }
+
     if (code) {
       if (!tokenData) token();
+    }
+    if (tokenData) {
+      setToken();
     }
 
     // if (!tokenData) {
@@ -127,7 +140,7 @@ function KakaoAuth() {
     // if (!scope) {
     //   // getAdditionalAgreement();
     // }
-  }, []);
+  }, [tokenData]);
 
   // const getAdditionalAgreement = async () => {
   //   Kakao.API.request({
