@@ -20,7 +20,6 @@ function KakaoAuth() {
     Kakao.isInitialized();
     Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-      scope: `account_email,gender,profile`,
     });
   }
 
@@ -102,8 +101,9 @@ function KakaoAuth() {
   }, [tokenData, userData, scope]);
 
   function getAdditionalAgreement() {
+    console.log("test");
     Kakao.Auth.authorize({
-      redirectUri: `${process.env.REACT_APP_KAKAO_REDIRECT_URI}`,
+      redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
       scope: `account_email,gender,profile`,
     });
   }
