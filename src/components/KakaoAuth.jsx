@@ -34,18 +34,18 @@ function KakaoAuth() {
   //   }
   // };
 
-  // const getScope = async () => {
-  //   if (userData) {
-  //     const config = {
-  //       headers: {
-  //         Authorization: "Bearer " + tokenData.access_token,
-  //       },
-  //       url: "https://kapi.kakao.com/v2/user/scopes",
-  //       method: "GET",
-  //     };
-  //     RestAPI(config, setScope);
-  //   }
-  // };
+  const getScope = async () => {
+    if (userData) {
+      const config = {
+        headers: {
+          Authorization: "Bearer " + tokenData.access_token,
+        },
+        url: "https://kapi.kakao.com/v2/user/scopes",
+        method: "GET",
+      };
+      RestAPI(config, setScope);
+    }
+  };
 
   // const getAgreement = async () => {
   //   if (userData) {
@@ -162,13 +162,13 @@ function KakaoAuth() {
       </p>
       <p>{userData ? `UserID : ${userData.id}` : "Please Login"}</p>
       <p>{scope ? `Response : ${scope}` : "Please Login"}</p>
-      {/* <button
+      <button
         onClick={() => {
-          getAdditionalAgreement();
+          getScope();
         }}
       >
         추가 동의 받기
-      </button> */}
+      </button>
     </>
   );
 }
