@@ -100,7 +100,7 @@ function KakaoAuth() {
   }, [tokenData, userData]);
 
   const getAdditionalAgreement = async () => {
-    const url = "https://kauth.kakao.com/v1/api/talk/profile";
+    const url = "https://kapi.kakao.com/v1/api/talk/profile";
     const config = {
       method: "GET",
       headers: {
