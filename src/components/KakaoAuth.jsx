@@ -116,7 +116,7 @@ function KakaoAuth() {
           // await Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
           // await Kakao.isInitialized();
           if (Kakao.isInitialized()) {
-            await Kakao.Auth.setAccessToken(tokenData);
+            await Kakao.Auth.setAccessToken(tokenData.setAccessToken);
             await Kakao.Auth.getAccessToken();
             console.log("test3");
             await Kakao.Auth.getStatusInfo();
@@ -125,7 +125,7 @@ function KakaoAuth() {
             console.log("???");
             Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
             console.log("test3");
-            await Kakao.Auth.setAccessToken(tokenData);
+            await Kakao.Auth.setAccessToken(tokenData.access_token);
             console.log("test4");
             await Kakao.Auth.getAccessToken();
             await Kakao.Auth.getStatusInfo();
