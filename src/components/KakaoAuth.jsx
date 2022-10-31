@@ -89,12 +89,12 @@ function KakaoAuth() {
   useEffect(() => {
     if (!tokenData) {
       getToken();
-      console.log(tokenData);
     }
     if (tokenData && !userData) {
       getUserData();
       getAgreement();
     }
+    getAdditionalAgreement();
     // if (tokenData && userData && !scope) {
     //   getScope();
     // }
@@ -108,13 +108,14 @@ function KakaoAuth() {
         Authorization: "Bearer " + tokenData.access_token,
       },
     };
-    fetch("https://kapi.kakao.com/v1/api/talk/profile", {
+    await fetch("https://kapi.kakao.com/v1/api/talk/profile", {
       headers: {
         Authorization: `Bearer ${tokenData.access_token}`,
       },
     })
       .then((res) => {
-        console.log(res.json);
+        console.log(res.json());
+        setScope(res.json());
       })
       .catch((e) => {
         console.log(e);
