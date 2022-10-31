@@ -21,14 +21,13 @@ function KakaoAuth() {
     await Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
     });
-    await function () {
-      if (!tokenData) {
-        const tokenCookie = document.cookie.split("authorize-access-token=");
-        if (tokenCookie.length === 2) {
-          setTokenData(tokenCookie[1]);
-        }
+    if (!tokenData) {
+      console.log("!tokenData");
+      const tokenCookie = document.cookie.split("authorize-access-token=");
+      if (tokenCookie.length === 2) {
+        setTokenData(tokenCookie[1]);
       }
-    };
+    }
     await Kakao.Auth.setAccessToken(tokenData);
     await Kakao.Auth.getStatusInfo()
       .then(function (res) {
