@@ -95,6 +95,8 @@ function KakaoAuth() {
     console.log("test3");
     console.log("test3");
     let codeCookie = document.cookie.split("authorize-access-token=");
+    console.log(document.cookie);
+    console.log(codeCookie);
     let code = "";
     if (codeCookie.length === 2) {
       // setCodeData(codeCookie[1]);
