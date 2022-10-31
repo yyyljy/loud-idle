@@ -112,11 +112,23 @@ function KakaoAuth() {
     async function setToken() {
       try {
         if (tokenData) {
-          await Kakao.Auth.getAccessToken();
-          // await Kakao.Auth.setAccessToken(tokenData);
-          console.log("test3");
-          await Kakao.Auth.getStatusInfo();
-          console.log("test4");
+          // await Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
+          // await Kakao.isInitialized();
+          if (Kakao.isInitialized()) {
+            await Kakao.Auth.getAccessToken();
+            // await Kakao.Auth.setAccessToken(tokenData);
+            console.log("test3");
+            await Kakao.Auth.getStatusInfo();
+            console.log("test4");
+          } else {
+            console.log("???");
+            await Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
+            await Kakao.Auth.setAccessToken(tokenData);
+            await Kakao.Auth.getAccessToken();
+            console.log("test3");
+            await Kakao.Auth.getStatusInfo();
+            console.log("test4");
+          }
         }
       } catch (e) {
         setError(e);
