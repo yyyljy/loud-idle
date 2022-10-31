@@ -103,14 +103,12 @@ function KakaoAuth() {
   const getAdditionalAgreement = async () => {
     const url = "https://kauth.kakao.com/v1/api/talk/profile";
     const config = {
-      method: "POST",
-      url: url,
+      method: "GET",
       headers: {
         Authorization: "Bearer " + tokenData.access_token,
       },
     };
-    await axios
-      .get("https://kauth.kakao.com/v1/api/talk/profile", config)
+    fetch(`${url}?Authorization=Bearer ${tokenData.access_token}`)
       .then((res) => {
         console.log(res);
       })
