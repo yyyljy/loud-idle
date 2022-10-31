@@ -22,68 +22,41 @@ function KakaoAuth() {
     });
   }
 
-  // const getToken = async () => {
-  //   try {
-  //     if (codeRecv.length === 2) {
-  //       codeRecv = codeRecv[1];
-  //       const _url = "https://kauth.kakao.com/oauth/token";
-  //       setError(null);
-  //       setTokenData(null);
-  //       setLoading(true);
-  //       const config = {
-  //         method: "POST",
-  //         url: _url,
-  //         data: qs.stringify({
-  //           grant_type: "authorization_code",
-  //           client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
-  //           redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-  //           code: codeRecv,
-  //         }),
-  //       };
-  //       RestAPI(config, setTokenData);
-  //     }
-  //   } catch (e) {
-  //     setError(e);
-  //     console.log(error);
-  //   }
-  //   setLoading(false);
-  // };
+  const getUserData = async () => {
+    if (tokenData) {
+      const _url = "https://kapi.kakao.com/v2/user/me";
+      const config = {
+        method: "POST",
+        url: _url,
+        headers: {
+          Authorization: "Bearer " + tokenData.access_token,
+        },
+      };
+      RestAPI(config, setUserData);
+    }
+  };
 
-  // const getUserData = async () => {
-  //   if (tokenData) {
-  //     const _url = "https://kapi.kakao.com/v2/user/me";
-  //     const config = {
-  //       method: "POST",
-  //       url: _url,
-  //       headers: {
-  //         Authorization: "Bearer " + tokenData.access_token,
-  //       },
-  //     };
-  //     RestAPI(config, setUserData);
-  //   }
-  // };
+  const getScope = async () => {
+    if (userData) {
+      const config = {
+        headers: {
+          Authorization: "Bearer " + tokenData.access_token,
+        },
+        url: "https://kapi.kakao.com/v2/user/scopes",
+        method: "GET",
+      };
+      RestAPI(config, setScope);
+    }
+  };
 
-  // const getScope = async () => {
-  //   if (userData) {
-  //     const config = {
-  //       headers: {
-  //         Authorization: "Bearer " + tokenData.access_token,
-  //       },
-  //       url: "https://kapi.kakao.com/v2/user/scopes",
-  //       method: "GET",
-  //     };
-  //     RestAPI(config, setScope);
-  //   }
-  // };
-
-  // const getAgreement = async () => {
-  //   if (userData) {
-  //     const res = await axios({
-  //       url: `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}/scope&response_type=code&scope=account_email,gender,profile`,
-  //     });
-  //     console.log(res);
-  //   }
-  // };
+  const getAgreement = async () => {
+    if (userData) {
+      const res = await axios({
+        url: `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}/scope&response_type=code&scope=account_email,gender,profile`,
+      });
+      console.log(res);
+    }
+  };
 
   useEffect(() => {
     let redirectURL = window.location.href;
@@ -95,23 +68,49 @@ function KakaoAuth() {
       console.log(code);
     }
 
+    // async function token() {
+    //   console.log("test4");
+    //   await Kakao.Auth.setAccessToken(code);
+    //   await Kakao.Auth.getStatusInfo()
+    //     .then(function (res) {
+    //       if (res.status === "connected") {
+    //         console.log("login success");
+    //         setTokenData(Kakao.Auth.getAccessToken());
+    //         console.log(tokenData);
+    //       }
+    //     })
+    //     .catch(function (err) {
+    //       console.log(err);
+    //       Kakao.Auth.setAccessToken(null);
+    //     });
+    //   console.log("test5");
+    // }
     async function token() {
-      console.log("test4");
-      await Kakao.Auth.setAccessToken(code);
-      await Kakao.Auth.getStatusInfo()
-        .then(function (res) {
-          if (res.status === "connected") {
-            console.log("login success");
-            setTokenData(Kakao.Auth.getAccessToken());
-            console.log(tokenData);
-          }
-        })
-        .catch(function (err) {
-          console.log(err);
-          Kakao.Auth.setAccessToken(null);
-        });
-      console.log("test5");
+      try {
+        if (code) {
+          const _url = "https://kauth.kakao.com/oauth/token";
+          setError(null);
+          setTokenData(null);
+          setLoading(true);
+          const config = {
+            method: "POST",
+            url: _url,
+            data: qs.stringify({
+              grant_type: "authorization_code",
+              client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
+              redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+              code: code,
+            }),
+          };
+          RestAPI(config, setTokenData);
+        }
+      } catch (e) {
+        setError(e);
+        console.log(error);
+      }
+      setLoading(false);
     }
+
     if (code) {
       if (!tokenData) token();
     }
