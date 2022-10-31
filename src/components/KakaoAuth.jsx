@@ -39,6 +39,7 @@ function KakaoAuth() {
             client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
             redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
             code: codeRecv,
+            scope: "account_email, gender",
           }),
         };
         RestAPI(config, setTokenData);
@@ -64,19 +65,20 @@ function KakaoAuth() {
     }
   };
 
-  const getScope = async () => {
-    if (userData) {
-      const config = {
-        url: "https://kauth.kakao.com/oauth/authorize",
-        method: "POST",
-        client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
-        redirect_uri: redirectURL,
-        response_type: "code",
-        scope: "account_email, gender",
-      };
-      RestAPI(config, setRespon);
-    }
-  };
+  // const getScope = async () => {
+  //   if (userData) {
+  //     const config = {
+  //       headers :
+  //       url: "https://kauth.kakao.com/oauth/authorize",
+  //       method: "GET",
+  //       client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
+  //       redirect_uri: redirectURL,
+  //       response_type: "code",
+  //       scope: "account_email, gender",
+  //     };
+  //     RestAPI(config, setRespon);
+  //   }
+  // };
 
   useEffect(() => {
     if (!tokenData) {
