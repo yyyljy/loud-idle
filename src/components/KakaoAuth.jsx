@@ -100,27 +100,15 @@ function KakaoAuth() {
   }, [tokenData, userData]);
 
   const getAdditionalAgreement = async () => {
-    const url = "https://kapi.kakao.com/v1/api/talk/profile";
-    const config = {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + tokenData.access_token,
-      },
-    };
-    try {
-      const response = await axios(
-        "https://kapi.kakao.com/v1/api/talk/profile",
-        {
-          headers: {
-            Authorization: `Bearer ${tokenData.access_token}`,
-          },
-        }
-      ).then((response) => {
-        console.log(response.json());
+    Kakao.API.request({
+      url: "/v2/user/me",
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
       });
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   return (
