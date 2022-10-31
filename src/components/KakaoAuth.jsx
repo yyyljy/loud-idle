@@ -101,11 +101,15 @@ function KakaoAuth() {
   }, [tokenData, userData, scope]);
 
   function getAdditionalAgreement() {
-    console.log("test");
-    Kakao.Auth.authorize({
-      redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
-      scope: `account_email,gender,profile`,
-    });
+    Kakao.API.request({
+      url: "/v2/user/me",
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (
