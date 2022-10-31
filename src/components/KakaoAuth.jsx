@@ -16,9 +16,7 @@ function KakaoAuth() {
   let codeRecv = redirectURL.split("code=");
 
   async function loginKakao() {
-    await Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY).throw((e) => {
-      console.log(e);
-    });
+    await Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
     await Kakao.isInitialized();
     await Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
