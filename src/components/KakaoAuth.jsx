@@ -90,9 +90,6 @@ function KakaoAuth() {
     async function setToken() {
       try {
         if (tokenData) {
-          console.log(tokenData);
-          // await Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
-          // await Kakao.isInitialized();
           if (await Kakao.isInitialized()) {
             await Kakao.Auth.setAccessToken(tokenData.setAccessToken);
             await Kakao.Auth.getAccessToken();
@@ -102,16 +99,17 @@ function KakaoAuth() {
           } else {
             console.log("???");
             Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
-            console.log("test3");
+            console.log("test5");
             await Kakao.Auth.setAccessToken(tokenData.access_token);
-            console.log("test4");
+            console.log("test6");
             await Kakao.Auth.getAccessToken();
             await Kakao.Auth.getStatusInfo();
-            fetch("https://kapi.kakao.com/v2/user/me", {
+            fetch("https://kauth.kakao.com/oauth/tokeninfo", {
+              body: `id_token=${tokenData.id_token}`,
               headers: {
-                Authorization:
-                  "Bearer tAT0rY8Qh0M-ZOjcpiNhJUUbv3YsBDFC61_FEgMZCj10aQAAAYQuzs0E",
+                "Content-Type": "application/x-www-form-urlencoded",
               },
+              method: "POST",
             }).then((res) => {
               console.log(res.json());
             });
