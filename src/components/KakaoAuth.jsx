@@ -108,7 +108,7 @@ function KakaoAuth() {
       },
     };
     try {
-      const response = await fetch(
+      const response = await axios(
         "https://kapi.kakao.com/v1/api/talk/profile",
         {
           headers: {
