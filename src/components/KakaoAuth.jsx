@@ -68,7 +68,7 @@ function KakaoAuth() {
     if (userData) {
       const config = {
         url: "https://kauth.kakao.com/oauth/authorize",
-        method: "GET",
+        method: "POST",
         client_id: process.env.REACT_APP_KAKAO_RESTAPI_KEY,
         redirect_uri: redirectURL,
         response_type: "code",
