@@ -113,7 +113,7 @@ function KakaoAuth() {
         });
       console.log("test5");
     }
-    if (!codeData) {
+    if (codeData) {
       if (!tokenData) token(tokenData);
     }
     // if (!tokenData) {
