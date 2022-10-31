@@ -43,6 +43,7 @@ function KakaoAuth() {
           }),
         };
         RestAPI(config, setTokenData);
+        console.log(tokenData);
       }
     } catch (e) {
       setError(e);
@@ -87,9 +88,9 @@ function KakaoAuth() {
     if (tokenData && !userData) {
       getUserData();
     }
-    if (tokenData && userData && !respon) {
-      getScope();
-    }
+    // if (tokenData && userData && !respon) {
+    //   getScope();
+    // }
   }, [tokenData, userData, respon]);
 
   return (
