@@ -94,6 +94,7 @@ function KakaoAuth() {
     let codeCookie = document.cookie.split("authorize-access-token=");
     if (codeCookie.length === 2) {
       setCodeData(codeCookie[1]);
+      console.log(codeData);
     }
 
     async function token() {
@@ -126,7 +127,7 @@ function KakaoAuth() {
     // if (!scope) {
     //   // getAdditionalAgreement();
     // }
-  }, [codeData, tokenData]);
+  }, []);
 
   // const getAdditionalAgreement = async () => {
   //   Kakao.API.request({
