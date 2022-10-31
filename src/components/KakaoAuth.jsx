@@ -111,18 +111,18 @@ function KakaoAuth() {
   //   }
   // };
 
-  useEffect(() => {
-    // if (!tokenData) {
-    //   getToken();
-    // }
-    // if (tokenData && !userData) {
-    //   getUserData();
-    //   getAgreement();
-    // }
-    // if (!scope) {
-    //   // getAdditionalAgreement();
-    // }
-  }, [tokenData, userData]);
+  // useEffect(() => {
+  //   // if (!tokenData) {
+  //   //   getToken();
+  //   // }
+  //   // if (tokenData && !userData) {
+  //   //   getUserData();
+  //   //   getAgreement();
+  //   // }
+  //   // if (!scope) {
+  //   //   // getAdditionalAgreement();
+  //   // }
+  // }, [tokenData, userData]);
 
   // const getAdditionalAgreement = async () => {
   //   Kakao.API.request({
