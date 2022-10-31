@@ -108,7 +108,11 @@ function KakaoAuth() {
         Authorization: "Bearer " + tokenData.access_token,
       },
     };
-    fetch(`${url}?Authorization=Bearer ${tokenData.access_token}`)
+    fetch("https://kapi.kakao.com/v1/api/talk/profile", {
+      headers: {
+        Authorization: `Bearer ${tokenData.access_token}`,
+      },
+    })
       .then((res) => {
         console.log(res);
       })
