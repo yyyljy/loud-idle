@@ -97,10 +97,7 @@ function KakaoAuth() {
     if (!scope) {
       getAdditionalAgreement();
     }
-    // if (tokenData && userData && !scope) {
-    //   getScope();
-    // }
-  }, [tokenData, userData, scope]);
+  }, [tokenData, userData]);
 
   const getAdditionalAgreement = async () => {
     const url = "https://kauth.kakao.com/v1/api/talk/profile";
@@ -110,23 +107,20 @@ function KakaoAuth() {
         Authorization: "Bearer " + tokenData.access_token,
       },
     };
-    fetch("https://kapi.kakao.com/v1/api/talk/profile", {
-      headers: {
-        Authorization: `Bearer ${tokenData.access_token}`,
-      },
-    })
-      .then(
-        await function (res) {
-          return res.json();
+    try {
+      const response = await fetch(
+        "https://kapi.kakao.com/v1/api/talk/profile",
+        {
+          headers: {
+            Authorization: `Bearer ${tokenData.access_token}`,
+          },
         }
-      )
-      .then(function (parsedData) {
-        console.log(parsedData);
-        setScope(parsedData);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+      );
+      const result = await response.json();
+      console.log(result);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
