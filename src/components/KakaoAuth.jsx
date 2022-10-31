@@ -100,6 +100,13 @@ function KakaoAuth() {
     }
   }, [tokenData, userData, scope]);
 
+  function getAdditionalAgreement() {
+    Kakao.Auth.authorize({
+      redirectUri: `${process.env.REACT_APP_KAKAO_REDIRECT_URI}`,
+      scope: `account_email,gender,profile`,
+    });
+  }
+
   return (
     <>
       <button
@@ -121,6 +128,13 @@ function KakaoAuth() {
       </p>
       <p>{userData ? `UserID : ${userData.id}` : "Please Login"}</p>
       <p>{scope ? `Response : ${scope}` : "Please Login"}</p>
+      <button
+        onClick={() => {
+          getAdditionalAgreement();
+        }}
+      >
+        추가 동의 받기
+      </button>
     </>
   );
 }
