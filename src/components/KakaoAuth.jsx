@@ -64,18 +64,18 @@ function KakaoAuth() {
     }
   };
 
-  const getScope = async () => {
-    if (userData) {
-      const config = {
-        headers: {
-          Authorization: "Bearer " + tokenData.access_token,
-        },
-        url: "https://kapi.kakao.com/v2/user/scopes",
-        method: "GET",
-      };
-      RestAPI(config, setScope);
-    }
-  };
+  // const getScope = async () => {
+  //   if (userData) {
+  //     const config = {
+  //       headers: {
+  //         Authorization: "Bearer " + tokenData.access_token,
+  //       },
+  //       url: "https://kapi.kakao.com/v2/user/scopes",
+  //       method: "GET",
+  //     };
+  //     RestAPI(config, setScope);
+  //   }
+  // };
 
   const getAgreement = async () => {
     if (userData) {
@@ -95,21 +95,21 @@ function KakaoAuth() {
       getUserData();
       getAgreement();
     }
-    if (tokenData && userData && !scope) {
-      getScope();
-    }
+    // if (tokenData && userData && !scope) {
+    //   getScope();
+    // }
   }, [tokenData, userData, scope]);
 
   function getAdditionalAgreement() {
-    Kakao.API.request({
-      url: "/v2/user/me",
-    })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const url = "https://kauth.kakao.com/v1/api/talk/profile";
+    const config = {
+      method: "GET",
+      url: url,
+      headers: {
+        Authorization: "Bearer " + tokenData.access_token,
+      },
+    };
+    RestAPI(config, setScope);
   }
 
   return (
