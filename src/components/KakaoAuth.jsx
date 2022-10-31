@@ -92,14 +92,16 @@ function KakaoAuth() {
 
   useEffect(() => {
     let codeCookie = document.cookie.split("authorize-access-token=");
+    let code = "";
     if (codeCookie.length === 2) {
-      setCodeData(codeCookie[1]);
-      console.log(codeData);
+      // setCodeData(codeCookie[1]);
+      code = codeCookie[1];
+      console.log(code);
     }
 
     async function token() {
       console.log("test4");
-      await Kakao.Auth.setAccessToken(codeData);
+      await Kakao.Auth.setAccessToken(code);
       await Kakao.Auth.getStatusInfo()
         .then(function (res) {
           if (res.status === "connected") {
@@ -114,8 +116,8 @@ function KakaoAuth() {
         });
       console.log("test5");
     }
-    if (codeData) {
-      if (!tokenData) token(tokenData);
+    if (code) {
+      if (!tokenData) token();
     }
     // if (!tokenData) {
     //   getToken();
