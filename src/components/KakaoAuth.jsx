@@ -115,9 +115,9 @@ function KakaoAuth() {
             Authorization: `Bearer ${tokenData.access_token}`,
           },
         }
-      );
-      //const result = await response.json();
-      await console.log(response.json());
+      ).then((response) => {
+        console.log(response.json());
+      });
     } catch (e) {
       console.log(e);
     }
