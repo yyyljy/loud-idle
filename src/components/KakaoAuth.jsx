@@ -16,19 +16,24 @@ function KakaoAuth() {
   let codeRecv = redirectURL.split("code=");
 
   async function loginKakao() {
+    let codeCookie = "";
+    console.log("test1");
     await Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
     await Kakao.isInitialized();
     await Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
     });
+    console.log("test2");
     if (!tokenData) {
-      console.log("!tokenData");
-      const tokenCookie = document.cookie.split("authorize-access-token=");
-      if (tokenCookie.length === 2) {
-        setTokenData(tokenCookie[1]);
+      console.log("!codeData");
+      let codeCookie = document.cookie.split("authorize-access-token=");
+      if (codeCookie.length === 2) {
+        codeCookie = codeCookie[1];
       }
     }
-    await Kakao.Auth.setAccessToken(tokenData);
+    console.log("test3");
+
+    await Kakao.Auth.setAccessToken(codeCookie);
     await Kakao.Auth.getStatusInfo()
       .then(function (res) {
         if (res.status === "connected") {
@@ -40,6 +45,7 @@ function KakaoAuth() {
         console.log(err);
         Kakao.Auth.setAccessToken(null);
       });
+    console.log("test4");
   }
 
   // const getToken = async () => {
