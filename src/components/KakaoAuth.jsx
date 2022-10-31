@@ -91,16 +91,9 @@ function KakaoAuth() {
   // };
 
   useEffect(() => {
-    async function code() {
-      console.log("test2");
-      if (!codeData) {
-        console.log("!codeData");
-        let codeCookie = document.cookie.split("authorize-access-token=");
-        if (codeCookie.length === 2) {
-          setCodeData(codeCookie[1]);
-        }
-      }
-      console.log("test3");
+    let codeCookie = document.cookie.split("authorize-access-token=");
+    if (codeCookie.length === 2) {
+      setCodeData(codeCookie[1]);
     }
 
     async function token() {
@@ -120,8 +113,7 @@ function KakaoAuth() {
         });
       console.log("test5");
     }
-    if (isInitialized) {
-      if (!codeData) code(codeData);
+    if (!codeData) {
       if (!tokenData) token(tokenData);
     }
     // if (!tokenData) {
