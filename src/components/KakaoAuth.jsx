@@ -64,30 +64,10 @@ function KakaoAuth() {
       code = codeURI[1];
     }
 
-    // async function token() {
-    //   console.log("test4");
-    //   await Kakao.Auth.setAccessToken(code);
-    //   await Kakao.Auth.getStatusInfo()
-    //     .then(function (res) {
-    //       if (res.status === "connected") {
-    //         console.log("login success");
-    //         setTokenData(Kakao.Auth.getAccessToken());
-    //         console.log(tokenData);
-    //       }
-    //     })
-    //     .catch(function (err) {
-    //       console.log(err);
-    //       Kakao.Auth.setAccessToken(null);
-    //     });
-    //   console.log("test5");
-    // }
     async function token() {
       try {
         if (code) {
           const _url = "https://kauth.kakao.com/oauth/token";
-          setError(null);
-          setTokenData(null);
-          setLoading(true);
           const config = {
             method: "POST",
             url: _url,
@@ -98,9 +78,7 @@ function KakaoAuth() {
               code: code,
             }),
           };
-          console.log("test1");
           await RestAPI(config, setTokenData);
-          console.log("test2");
         }
       } catch (e) {
         setError(e);
@@ -115,7 +93,7 @@ function KakaoAuth() {
           console.log(tokenData);
           // await Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
           // await Kakao.isInitialized();
-          if (Kakao.isInitialized()) {
+          if (await Kakao.isInitialized()) {
             await Kakao.Auth.setAccessToken(tokenData.setAccessToken);
             await Kakao.Auth.getAccessToken();
             console.log("test3");
@@ -129,6 +107,14 @@ function KakaoAuth() {
             console.log("test4");
             await Kakao.Auth.getAccessToken();
             await Kakao.Auth.getStatusInfo();
+            fetch("https://kapi.kakao.com/v2/user/me", {
+              headers: {
+                Authorization:
+                  "Bearer tAT0rY8Qh0M-ZOjcpiNhJUUbv3YsBDFC61_FEgMZCj10aQAAAYQuzs0E",
+              },
+            }).then((res) => {
+              console.log(res.json());
+            });
           }
         }
       } catch (e) {
@@ -143,17 +129,6 @@ function KakaoAuth() {
     if (tokenData) {
       setToken();
     }
-
-    // if (!tokenData) {
-    //   getToken();
-    // }
-    // if (tokenData && !userData) {
-    //   getUserData();
-    //   getAgreement();
-    // }
-    // if (!scope) {
-    //   // getAdditionalAgreement();
-    // }
   }, [tokenData]);
 
   // const getAdditionalAgreement = async () => {
