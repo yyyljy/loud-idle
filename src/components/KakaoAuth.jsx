@@ -117,7 +117,7 @@ function KakaoAuth() {
         }
       );
       //const result = await response.json();
-      await console.log(response);
+      await console.log(response.json());
     } catch (e) {
       console.log(e);
     }
