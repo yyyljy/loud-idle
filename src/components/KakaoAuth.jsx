@@ -98,9 +98,13 @@ function KakaoAuth() {
               code: code,
             }),
           };
+          console.log("test1");
           await RestAPI(config, setTokenData);
+          console.log("test2");
           await Kakao.Auth.setAccessToken(tokenData);
+          console.log("test3");
           await Kakao.Auth.getStatusInfo();
+          console.log("test4");
         }
       } catch (e) {
         setError(e);
