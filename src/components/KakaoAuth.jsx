@@ -103,7 +103,7 @@ function KakaoAuth() {
   function getAdditionalAgreement() {
     const url = "https://kauth.kakao.com/v1/api/talk/profile";
     const config = {
-      method: "GET",
+      method: "POST",
       url: url,
       headers: {
         Authorization: "Bearer " + tokenData.access_token,
