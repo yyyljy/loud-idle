@@ -74,17 +74,17 @@ function KakaoAuth() {
             Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
             await Kakao.Auth.setAccessToken(tokenData.access_token);
             // await Kakao.Auth.getAccessToken();
-            await Kakao.Auth.getStatusInfo().then((res) => {
-              result = res;
-              console.log(result.status);
-              console.log(result.result);
-              console.log(result._result);
-            });
-            console.log(result);
-            console.log(result["_result"]);
-            // console.log(result._result);
-            // console.log(result.result);
-            console.log(result.valueOf());
+            await Kakao.Auth.getStatusInfo()
+              .then((res) => {
+                if (res.status === "connected") {
+                  return res.status.user;
+                } else {
+                  console.log("NOT CONNECTED");
+                }
+              })
+              .then((user) => {
+                console.log(user);
+              });
           }
         }
       } catch (e) {
