@@ -10,7 +10,7 @@ function KakaoAuth() {
     code: "",
     access_token: "",
     refresh_token: "",
-    kakao_id: "",
+    id: "",
     email: "",
     profile_url: "",
     thumbnail_url: "",
@@ -21,7 +21,6 @@ function KakaoAuth() {
   const [userObj, setUserObj] = useState(user);
   const [tokenData, setTokenData] = useState(null);
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [scope, setScope] = useState(null);
 
@@ -41,10 +40,9 @@ function KakaoAuth() {
       code = codeURI[1];
       setUserObj({ ...userObj, code: code });
       console.log(userObj);
-      console.log(Kakao.Auth.getAccessToken());
     }
 
-    async function token() {
+    async function getToken() {
       try {
         if (code) {
           const _url = "https://kauth.kakao.com/oauth/token";
@@ -59,36 +57,39 @@ function KakaoAuth() {
             }),
           };
           await RestAPI(config, setTokenData);
+          setUserObj({
+            ...userObj,
+            access_token: tokenData.access_token,
+            refresh_token: tokenData.refresh_token,
+          });
+          console.log(userObj);
         }
       } catch (e) {
         setError(e);
         console.log(error);
       }
-      setLoading(false);
     }
 
     async function setToken() {
       try {
         if (tokenData) {
+          let result = "";
           console.log(Kakao.isInitialized());
           if (await Kakao.isInitialized()) {
             await Kakao.Auth.setAccessToken(tokenData.setAccessToken);
             await Kakao.Auth.getAccessToken();
-            await Kakao.Auth.getStatusInfo();
+            result = Kakao.Auth.getStatusInfo();
           } else {
             Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
-            let result = "";
             await Kakao.Auth.setAccessToken(tokenData.access_token);
             await Kakao.Auth.getAccessToken();
             result = Kakao.Auth.getStatusInfo();
-            console.log(result);
-            setUserObj({
-              ...userObj,
-              access_token: tokenData.access_token,
-              refresh_token: tokenData.refresh_token,
-            });
             console.log(userObj);
           }
+          setUserObj({
+            ...userObj,
+            id: result.id,
+          });
         }
       } catch (e) {
         setError(e);
@@ -97,7 +98,7 @@ function KakaoAuth() {
     }
 
     if (code) {
-      if (!tokenData) token();
+      if (!tokenData) getToken();
     }
     if (tokenData) {
       setToken();
