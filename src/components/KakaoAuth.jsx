@@ -57,12 +57,6 @@ function KakaoAuth() {
             }),
           };
           await RestAPI(config, setTokenData);
-          setUserObj({
-            ...userObj,
-            access_token: tokenData.access_token,
-            refresh_token: tokenData.refresh_token,
-          });
-          console.log(userObj);
         }
       } catch (e) {
         setError(e);
@@ -74,7 +68,6 @@ function KakaoAuth() {
       try {
         if (tokenData) {
           let result = "";
-          console.log(Kakao.isInitialized());
           if (await Kakao.isInitialized()) {
             await Kakao.Auth.setAccessToken(tokenData.setAccessToken);
             await Kakao.Auth.getAccessToken();
@@ -84,12 +77,13 @@ function KakaoAuth() {
             await Kakao.Auth.setAccessToken(tokenData.access_token);
             await Kakao.Auth.getAccessToken();
             result = Kakao.Auth.getStatusInfo();
-            console.log(userObj);
+            console.log(result);
           }
           setUserObj({
             ...userObj,
             id: result.id,
           });
+          console.log(userObj);
         }
       } catch (e) {
         setError(e);
@@ -98,10 +92,17 @@ function KakaoAuth() {
     }
 
     if (code) {
-      if (!tokenData) getToken();
-    }
-    if (tokenData) {
-      setToken();
+      if (!tokenData) {
+        getToken();
+      } else {
+        setUserObj({
+          ...userObj,
+          access_token: tokenData.access_token,
+          refresh_token: tokenData.refresh_token,
+        });
+        console.log(userObj);
+        setToken();
+      }
     }
   }, [tokenData]);
 
