@@ -4,19 +4,22 @@ import qs from "qs";
 import RestAPI from "./RestAPI";
 // https://developers.kakao.com/sdk/reference/js/release/index.html
 
+let user = {
+  code: "",
+  access_token: "",
+  refresh_token: "",
+  id: "",
+  email: "",
+  profile_image_url: "",
+  thumbnail_image_url: "",
+  age_range: "",
+  gender: "",
+  connected_at: "",
+};
+
 function KakaoAuth() {
   const Kakao = window.Kakao;
-  const [userObj, setUserObj] = useState({
-    code: "",
-    access_token: "",
-    refresh_token: "",
-    id: "",
-    email: "",
-    profile_url: "",
-    thumbnail_url: "",
-    age_range: "",
-    gender: "",
-  });
+  const [userObj, setUserObj] = useState(user);
   const [tokenData, setTokenData] = useState(null);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
@@ -65,11 +68,10 @@ function KakaoAuth() {
     async function setToken() {
       try {
         if (tokenData) {
-          let result = "";
           if (await Kakao.isInitialized()) {
             await Kakao.Auth.setAccessToken(tokenData.setAccessToken);
             // await Kakao.Auth.getAccessToken();
-            result = Kakao.Auth.getStatusInfo();
+            await Kakao.Auth.getStatusInfo();
           } else {
             Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
             await Kakao.Auth.setAccessToken(tokenData.access_token);
@@ -82,10 +84,21 @@ function KakaoAuth() {
                   console.log("NOT CONNECTED");
                 }
               })
-              .then((user) => {
-                console.log(user);
+              .then((res) => {
+                console.log(res);
+                const _user = {
+                  ...user,
+                  connected_at: res.connected_at,
+                  id: res.id,
+                  age_range: res.age_range,
+                  gender: res.gender,
+                  profile_image_url: res.profile_image_url,
+                  thumbnail_image_url: res.thumbnail_image_url,
+                };
+                setUserObj(_user);
               });
           }
+          console.log(`userObj:${userObj}`);
         }
       } catch (e) {
         setError(e);
