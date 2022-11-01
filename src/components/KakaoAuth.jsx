@@ -75,6 +75,7 @@ function KakaoAuth() {
     async function setToken() {
       try {
         if (tokenData) {
+          console.log(Kakao.isInitialized());
           if (await Kakao.isInitialized()) {
             await Kakao.Auth.setAccessToken(tokenData.setAccessToken);
             await Kakao.Auth.getAccessToken();
@@ -87,8 +88,10 @@ function KakaoAuth() {
             console.log("test5");
             await Kakao.Auth.setAccessToken(tokenData.access_token);
             console.log("test6");
+            const obj = "";
             await Kakao.Auth.getAccessToken();
-            await Kakao.Auth.getStatusInfo();
+            obj = Kakao.Auth.getStatusInfo();
+            console.log(obj);
           }
         }
       } catch (e) {
