@@ -5,8 +5,7 @@ import RestAPI from "./RestAPI";
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
-
-  const user = {
+  const [userObj, setUserObj] = useState({
     code: "",
     access_token: "",
     refresh_token: "",
@@ -16,9 +15,7 @@ function KakaoAuth() {
     thumbnail_url: "",
     age_range: "",
     gender: "",
-  };
-
-  const [userObj, setUserObj] = useState(user);
+  });
   const [tokenData, setTokenData] = useState(null);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
@@ -80,10 +77,10 @@ function KakaoAuth() {
             console.log(result);
           }
           setUserObj({
-            ...userObj,
-            id: result.id,
+            id: result._result.user.id,
           });
           console.log(userObj);
+          console.log(result.kakao_account);
         }
       } catch (e) {
         setError(e);
@@ -96,7 +93,6 @@ function KakaoAuth() {
         getToken();
       } else {
         setUserObj({
-          ...userObj,
           access_token: tokenData.access_token,
           refresh_token: tokenData.refresh_token,
         });
