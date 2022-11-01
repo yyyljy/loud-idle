@@ -98,7 +98,7 @@ function KakaoAuth() {
                 setUserObj(_user);
               });
           }
-          console.log(`userObj:${userObj}`);
+          console.log(`userObj:${userObj.id}`);
         }
       } catch (e) {
         setError(e);
@@ -134,7 +134,7 @@ function KakaoAuth() {
           ? `Access Token : ${tokenData.access_token}`
           : "Please Login"}
       </p>
-      <p>{userData ? `UserID : ${userData.id}` : "Please Login"}</p>
+      <p>{userObj ? `UserID : ${userObj.id}` : "Please Login"}</p>
       <p>{scope ? `Response : ${scope}` : "Please Login"}</p>
       <button onClick={() => {}}>추가 동의 받기</button>
     </>
