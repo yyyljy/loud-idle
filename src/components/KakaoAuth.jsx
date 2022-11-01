@@ -77,7 +77,7 @@ function KakaoAuth() {
             await Kakao.Auth.getStatusInfo()
               .then((res) => {
                 if (res.status === "connected") {
-                  return res.status.user;
+                  return res.user;
                 } else {
                   console.log("NOT CONNECTED");
                 }
