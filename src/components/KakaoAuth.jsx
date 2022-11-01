@@ -88,7 +88,7 @@ function KakaoAuth() {
             console.log("test5");
             await Kakao.Auth.setAccessToken(tokenData.access_token);
             console.log("test6");
-            const obj = "";
+            let obj = "";
             await Kakao.Auth.getAccessToken();
             obj = Kakao.Auth.getStatusInfo();
             console.log(obj);
