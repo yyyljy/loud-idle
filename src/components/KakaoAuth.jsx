@@ -73,9 +73,8 @@ function KakaoAuth() {
             Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
             await Kakao.Auth.setAccessToken(tokenData.access_token);
             await Kakao.Auth.getAccessToken();
-            result = Kakao.Auth.getStatusInfo(({ status, _result }) => {
+            await Kakao.Auth.getStatusInfo(({ status }) => {
               console.log(status);
-              console.log(_result);
             });
             console.log(result);
             console.log(result["_result"]);
@@ -83,9 +82,6 @@ function KakaoAuth() {
             // console.log(result.result);
             console.log(result.valueOf());
           }
-          setUserObj({ ...userObj, id: result });
-          console.log(userObj);
-          console.log(result.kakao_account);
         }
       } catch (e) {
         setError(e);
@@ -97,12 +93,6 @@ function KakaoAuth() {
       if (!tokenData) {
         getToken();
       } else {
-        setUserObj({
-          ...userObj,
-          access_token: tokenData.access_token,
-          refresh_token: tokenData.refresh_token,
-        });
-        console.log(userObj);
         setToken();
       }
     }
