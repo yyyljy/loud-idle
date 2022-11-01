@@ -13,9 +13,9 @@ function Main() {
       </Box>
       <GoogleAuthForm />
       <MetamaskAuth />
-      {/* <NaverAuth /> */}
       <KakaoAuth />
-      <NextUITest />
+      {/* <NaverAuth /> */}
+      {/* <NextUITest /> */}
       <Container maxW="2xl" bg="blue.500" centerContent>
         <Text
           bgGradient="linear(to-l, #7928CA, #FF0080)"

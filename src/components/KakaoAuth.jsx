@@ -6,6 +6,19 @@ import RestAPI from "./RestAPI";
 function KakaoAuth() {
   const Kakao = window.Kakao;
 
+  const user = {
+    code: "",
+    access_token: "",
+    refresh_token: "",
+    kakao_id: "",
+    email: "",
+    profile_url: "",
+    thumbnail_url: "",
+    age_range: "",
+    gender: "",
+  };
+
+  const [userObj, setUserObj] = useState(user);
   const [tokenData, setTokenData] = useState(null);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -20,48 +33,14 @@ function KakaoAuth() {
     });
   }
 
-  // const getUserData = async () => {
-  //   if (tokenData) {
-  //     const _url = "https://kapi.kakao.com/v2/user/me";
-  //     const config = {
-  //       method: "POST",
-  //       url: _url,
-  //       headers: {
-  //         Authorization: "Bearer " + tokenData.access_token,
-  //       },
-  //     };
-  //     RestAPI(config, setUserData);
-  //   }
-  // };
-
-  const getScope = async () => {
-    if (userData) {
-      const config = {
-        headers: {
-          Authorization: "Bearer " + tokenData.access_token,
-        },
-        url: "https://kapi.kakao.com/v2/user/scopes",
-        method: "GET",
-      };
-      RestAPI(config, setScope);
-    }
-  };
-
-  // const getAgreement = async () => {
-  //   if (userData) {
-  //     const res = await axios({
-  //       url: `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}/scope&response_type=code&scope=account_email,gender,profile`,
-  //     });
-  //     console.log(res);
-  //   }
-  // };
-
   useEffect(() => {
     let redirectURL = window.location.href;
     let codeURI = redirectURL.split("code=");
     let code = "";
     if (codeURI.length === 2) {
       code = codeURI[1];
+      setUserObj({ ...userObj, code: code });
+      console.log(userObj);
     }
 
     async function token() {
@@ -79,6 +58,12 @@ function KakaoAuth() {
             }),
           };
           await RestAPI(config, setTokenData);
+          setUserObj({
+            ...userObj,
+            access_token: tokenData.access_token,
+            refresh_token: tokenData.refresh_token,
+          });
+          console.log(userObj);
         }
       } catch (e) {
         setError(e);
@@ -104,15 +89,6 @@ function KakaoAuth() {
             console.log("test6");
             await Kakao.Auth.getAccessToken();
             await Kakao.Auth.getStatusInfo();
-            fetch("https://kauth.kakao.com/oauth/tokeninfo", {
-              body: `id_token=${tokenData.id_token}`,
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-              method: "POST",
-            }).then((res) => {
-              console.log(res.json());
-            });
           }
         }
       } catch (e) {
@@ -128,18 +104,6 @@ function KakaoAuth() {
       setToken();
     }
   }, [tokenData]);
-
-  // const getAdditionalAgreement = async () => {
-  //   Kakao.API.request({
-  //     url: "/v2/user/me",
-  //   })
-  //     .then(function (response) {
-  //       console.log(response);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // };
 
   return (
     <>
@@ -162,13 +126,7 @@ function KakaoAuth() {
       </p>
       <p>{userData ? `UserID : ${userData.id}` : "Please Login"}</p>
       <p>{scope ? `Response : ${scope}` : "Please Login"}</p>
-      <button
-        onClick={() => {
-          getScope();
-        }}
-      >
-        추가 동의 받기
-      </button>
+      <button onClick={() => {}}>추가 동의 받기</button>
     </>
   );
 }
