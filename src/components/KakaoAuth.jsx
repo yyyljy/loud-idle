@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import qs from "qs";
 import RestAPI from "./RestAPI";
+// https://developers.kakao.com/sdk/reference/js/release/index.html
 
 function KakaoAuth() {
   const Kakao = window.Kakao;
@@ -67,14 +68,17 @@ function KakaoAuth() {
           let result = "";
           if (await Kakao.isInitialized()) {
             await Kakao.Auth.setAccessToken(tokenData.setAccessToken);
-            await Kakao.Auth.getAccessToken();
+            // await Kakao.Auth.getAccessToken();
             result = Kakao.Auth.getStatusInfo();
           } else {
             Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
             await Kakao.Auth.setAccessToken(tokenData.access_token);
-            await Kakao.Auth.getAccessToken();
-            await Kakao.Auth.getStatusInfo(({ status }) => {
-              console.log(status);
+            // await Kakao.Auth.getAccessToken();
+            await Kakao.Auth.getStatusInfo().then((res) => {
+              result = res;
+              console.log(result.status);
+              console.log(result.result);
+              console.log(result._result);
             });
             console.log(result);
             console.log(result["_result"]);
