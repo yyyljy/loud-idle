@@ -75,10 +75,10 @@ function KakaoAuth() {
             await Kakao.Auth.getAccessToken();
             result = Kakao.Auth.getStatusInfo();
             console.log(result);
-            console.log(result[0]);
+            console.log(result["_result"]);
             // console.log(result._result);
             // console.log(result.result);
-            console.log(result.toString());
+            console.log(result.valueOf());
           }
           setUserObj({ ...userObj, id: result });
           console.log(userObj);
