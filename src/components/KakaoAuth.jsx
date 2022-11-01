@@ -73,8 +73,9 @@ function KakaoAuth() {
             Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
             await Kakao.Auth.setAccessToken(tokenData.access_token);
             await Kakao.Auth.getAccessToken();
-            result = Kakao.Auth.getStatusInfo((response) => {
-              console.log(response.json());
+            result = Kakao.Auth.getStatusInfo(({ status, _result }) => {
+              console.log(status);
+              console.log(_result);
             });
             console.log(result);
             console.log(result["_result"]);
