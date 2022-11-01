@@ -84,7 +84,7 @@ function KakaoAuth() {
             console.log(result);
             setUserObj({
               ...userObj,
-              access_token: access_token,
+              access_token: tokenData.access_token,
               refresh_token: tokenData.refresh_token,
             });
             console.log(userObj);
